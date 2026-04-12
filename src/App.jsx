@@ -324,10 +324,10 @@ function App() {
                   上記項目でご記入いただいたDiscordアカウントを登録しご連絡、もしくはメールアドレスにてご連絡いたします。
                 </li>
                 <li style={{ marginBottom: '1.5rem' }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>個人のご依頼</strong>　お名前、使用目的、ご予算、あれば原稿内容
+                  <strong style={{ color: 'var(--text-primary)', marginRight: '1em' }}>個人のご依頼</strong>お名前、使用目的、ご予算、あれば原稿内容
                 </li>
                 <li style={{ marginBottom: '1.5rem' }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>法人のご依頼</strong>　会社名、案件内容、競合の有無、可能であればご予算
+                  <strong style={{ color: 'var(--text-primary)', marginRight: '1em' }}>法人のご依頼</strong>会社名、案件内容、競合の有無、可能であればご予算
                 </li>
                 <li style={{ borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
                   上記項目でご記入いただいたDiscordアカウントを登録しご連絡、<br/>
@@ -340,7 +340,7 @@ function App() {
               <iframe
                 id="JotFormIFrame-253502863799066"
                 title="お問い合わせフォーム"
-                onLoad={(e) => window.parent.scrollTo(0,0)}
+                onLoad={() => window.parent.scrollTo(0,0)}
                 allowtransparency="true"
                 allowFullScreen={true}
                 allow="geolocation; microphone; camera"
