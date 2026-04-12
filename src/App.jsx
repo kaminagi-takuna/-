@@ -37,7 +37,12 @@ const NoteEmbed = ({ noteId }) => {
 
 function App() {
   const [activeTab, setActiveTab] = useState('welcome');
-  const [viewMode, setViewMode] = useState('auto');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setIsMobileMenuOpen(false);
+  };
 
   const renderContent = () => {
     switch(activeTab) {
@@ -47,31 +52,15 @@ function App() {
             <h2>ようこそ</h2>
             <div className="content-card" style={{ textAlign: 'center', padding: '4rem 2rem', marginTop: '2rem' }}>
               <h3 style={{ color: 'var(--accent)', fontSize: '1.6rem', marginBottom: '2rem', letterSpacing: '0.15em', fontWeight: '800' }}>
-                ようこそ新メソッドのトレーニングサイトへ
+                ようこそ<br className="sp-only" />新メソッドの<br className="sp-only" />トレーニングサイト<br className="sp-only" />へ
               </h3>
-              <p style={{ fontSize: '1.2rem', lineHeight: '2.2', color: 'var(--text-primary)', letterSpacing: '0.05em', marginBottom: '3rem' }}>
-                ここはボイストレーナー兼声優役者指導者である<br />神薙拓那のホームページです
+              <p style={{ fontSize: '1.2rem', lineHeight: '2.2', color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
+                ここは<br className="sp-only" />
+                ボイストレーナー<br className="sp-only" />
+                兼<br className="sp-only" />
+                声優役者指導者である<br />
+                神薙拓那のホームページです
               </p>
-
-              <div style={{ paddingTop: '2rem', borderTop: '1px dashed rgba(255,255,255,0.2)' }}>
-                <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', fontWeight: 'bold' }}>
-                  どちらで観覧しますか？
-                </p>
-                <div className="device-toggles">
-                  <button 
-                    className={`device-btn ${viewMode === 'mobile' ? 'active' : ''}`}
-                    onClick={() => setViewMode('mobile')}
-                  >
-                    スマートフォン
-                  </button>
-                  <button 
-                    className={`device-btn ${viewMode === 'desktop' ? 'active' : ''}`}
-                    onClick={() => setViewMode('desktop')}
-                  >
-                    パソコン
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         );
@@ -378,29 +367,49 @@ function App() {
   }, [activeTab]);
 
   return (
-    <div className={`layout-container ${viewMode !== 'auto' ? `force-${viewMode}` : ''}`}>
-      <nav className="sidebar">
-        <h1 className="logo" style={{ fontFamily: 'var(--font-en)', fontSize: '1.6rem', lineHeight: '1.1', textAlign: 'left', fontWeight: '800', marginLeft: '1.2rem' }}>
+    <div className="layout-container">
+      {/* Mobile Top Header (Visible only on mobile via CSS) */}
+      <div className="mobile-header sp-only-flex">
+        <div className="mobile-logo">
+          <span style={{ color: 'var(--accent)' }}>K</span>AMINAGI <span style={{ color: 'var(--accent)' }}>O</span>NLINE <span style={{ color: 'var(--accent)' }}>L</span>ESSON
+        </div>
+        <button 
+          className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`} 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      {/* Hamburger Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-overlay sp-only-block" onClick={() => setIsMobileMenuOpen(false)}></div>
+      )}
+
+      <nav className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+        <h1 className="logo desktop-logo" style={{ fontFamily: 'var(--font-en)', fontSize: '1.6rem', lineHeight: '1.1', textAlign: 'left', fontWeight: '800', marginLeft: '1.2rem' }}>
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>K</span>AMINAGI<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>O</span>NLINE<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>L</span>ESSON
         </h1>
         <ul className="nav-menu">
-          <li className={activeTab === 'welcome' ? 'active' : ''} onClick={() => setActiveTab('welcome')}>ようこそ</li>
-          <li className={activeTab === 'profile' ? 'active' : ''} onClick={() => setActiveTab('profile')}>自己紹介</li>
-          <li className={activeTab === 'lessons' ? 'active' : ''} onClick={() => setActiveTab('lessons')}>レッスン内容及び金額表</li>
-          <li className={activeTab === 'canva' ? 'active' : ''} onClick={() => setActiveTab('canva')}>
+          <li className={activeTab === 'welcome' ? 'active' : ''} onClick={() => handleTabChange('welcome')}>ようこそ</li>
+          <li className={activeTab === 'profile' ? 'active' : ''} onClick={() => handleTabChange('profile')}>自己紹介</li>
+          <li className={activeTab === 'lessons' ? 'active' : ''} onClick={() => handleTabChange('lessons')}>レッスン内容及び金額表</li>
+          <li className={activeTab === 'canva' ? 'active' : ''} onClick={() => handleTabChange('canva')}>
             <span>依頼詳細</span>
           </li>
-          <li className={activeTab === 'twitter' ? 'active' : ''} onClick={() => setActiveTab('twitter')}>
+          <li className={activeTab === 'twitter' ? 'active' : ''} onClick={() => handleTabChange('twitter')}>
             <span style={{ fontFamily: 'var(--font-en)' }}>Twitter</span>
             <a href="https://x.com/Voice_Tac" target="_blank" rel="noopener noreferrer" className="external-link" onClick={(e) => e.stopPropagation()} title="別窓で開く">↗</a>
           </li>
-          <li className={activeTab === 'note' ? 'active' : ''} onClick={() => setActiveTab('note')}>
+          <li className={activeTab === 'note' ? 'active' : ''} onClick={() => handleTabChange('note')}>
             <span style={{ fontFamily: 'var(--font-en)' }}>note</span>
             <a href="https://note.com/voice_tn_nagi" target="_blank" rel="noopener noreferrer" className="external-link" onClick={(e) => e.stopPropagation()} title="別窓で開く">↗</a>
           </li>
-          <li className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>メールフォーム</li>
+          <li className={activeTab === 'contact' ? 'active' : ''} onClick={() => handleTabChange('contact')}>メールフォーム</li>
         </ul>
       </nav>
       <main className="content-area">

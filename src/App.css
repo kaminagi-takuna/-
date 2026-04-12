@@ -459,63 +459,63 @@ h2::after {
 /* ==========================================================================
    Mobile Responsive Adjustments
    ========================================================================== */
+/* ==========================================================================
+   Responsive Line Breaks & Layout
+   ========================================================================== */
+.sp-only { display: none; }
+.sp-only-flex, .sp-only-block { display: none; }
+
 @media screen and (max-width: 768px) {
-  .layout-container:not(.force-desktop) {
+  .sp-only { display: initial; }
+  br.sp-only { display: block; content: ""; }
+  .sp-only-flex { display: flex; }
+  .sp-only-block { display: block; }
+
+  .layout-container {
     flex-direction: column;
-    overflow-y: auto;
   }
-  .layout-container:not(.force-desktop) .sidebar {
-    width: 100%; height: auto; padding: 1.5rem 0; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  
+  .mobile-header {
+    justify-content: space-between; align-items: center;
+    background: var(--sidebar-bg); padding: 1rem 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 30; border-bottom: 1px solid var(--border-color);
   }
-  .layout-container:not(.force-desktop) .nav-menu {
-    flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+  
+  .mobile-logo {
+    font-family: var(--font-en); font-weight: 800; font-size: 1.1rem; color: var(--text-primary); letter-spacing: 0.05em;
   }
-  .layout-container:not(.force-desktop) .nav-menu li {
-    padding: 0.6rem 0.5rem; font-size: 0.85rem; flex: 1 1 calc(50% - 1.5rem); text-align: center; justify-content: center;
+  
+  .hamburger {
+    background: transparent; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 5px; z-index: 40;
   }
-  .layout-container:not(.force-desktop) .logo {
-    margin-bottom: 1.2rem; font-size: 1.4rem;
+  .hamburger span {
+    display: block; width: 25px; height: 3px; background: var(--text-primary); border-radius: 3px; transition: all 0.3s ease;
   }
-  .layout-container:not(.force-desktop) .content-area { overflow-y: visible; }
-  .layout-container:not(.force-desktop) .page-content { padding: 2rem 1.2rem; }
-  .layout-container:not(.force-desktop) h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
-  .layout-container:not(.force-desktop) .hero-section h2 { font-size: 2rem !important; }
-  .layout-container:not(.force-desktop) .pricing-cards { grid-template-columns: 1fr; }
-}
+  .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-/* Force Mobile Override */
-.layout-container.force-mobile {
-  flex-direction: column; overflow-y: auto;
-}
-.layout-container.force-mobile .sidebar { width: 100%; height: auto; padding: 1.5rem 0; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.layout-container.force-mobile .nav-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
-.layout-container.force-mobile .nav-menu li { padding: 0.6rem 0.5rem; font-size: 0.85rem; flex: 1 1 calc(50% - 1.5rem); text-align: center; justify-content: center; }
-.layout-container.force-mobile .logo { margin-bottom: 1.2rem; font-size: 1.4rem; }
-.layout-container.force-mobile .content-area { overflow-y: visible; }
-.layout-container.force-mobile .page-content { padding: 2rem 1.2rem; }
-.layout-container.force-mobile h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
-.layout-container.force-mobile .hero-section h2 { font-size: 2rem !important; }
-.layout-container.force-mobile .pricing-cards { grid-template-columns: 1fr; }
+  .sidebar {
+    position: absolute; top: 60px; left: -100%; width: 280px !important; height: calc(100vh - 60px) !important;
+    padding: 1.5rem 0; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 25; background: var(--sidebar-bg);
+  }
+  .sidebar.open {
+    left: 0; box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+  }
+  
+  .desktop-logo { display: none; }
 
-/* Force Desktop Override (to cancel media query on small screens if requested) */
-.layout-container.force-desktop {
-  flex-direction: row !important; overflow: hidden !important;
-}
-.layout-container.force-desktop .sidebar {
-  width: 280px !important; height: 100vh !important; padding: 2.5rem 0 !important;
-}
-.layout-container.force-desktop .nav-menu { flex-direction: column !important; flex-wrap: nowrap !important; }
+  .nav-menu { flex-direction: column !important; flex-wrap: nowrap !important; margin-top: 1rem; }
+  .nav-menu li { padding: 1.2rem 1.5rem !important; flex: none !important; text-align: left !important; justify-content: flex-start !important; font-size: 1rem; }
 
-/* Device Selection Buttons */
-.device-toggles {
-  display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;
-}
-.device-btn {
-  background: rgba(15, 23, 42, 0.8); border: 2px solid var(--border-color); color: var(--text-secondary);
-  padding: 1rem 2rem; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer;
-  transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
-}
-.device-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); border-color: var(--text-primary); }
-.device-btn.active {
-  background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  .mobile-overlay {
+    position: absolute; top: 60px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 20;
+    animation: fadeIn 0.3s ease forwards;
+  }
+  
+  .content-area { height: calc(100vh - 60px); overflow-y: auto; }
+  .page-content { padding: 2rem 1.2rem; }
+  h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  .hero-section h2 { font-size: 2rem !important; }
+  .pricing-cards { grid-template-columns: 1fr; }
 }
