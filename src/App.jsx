@@ -36,10 +36,25 @@ const NoteEmbed = ({ noteId }) => {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState('profile')
+  const [activeTab, setActiveTab] = useState('welcome')
 
   const renderContent = () => {
     switch(activeTab) {
+      case 'welcome':
+        return (
+          <div className="page-content fade-in">
+            <h2>ようこそ</h2>
+            <div className="content-card" style={{ textAlign: 'center', padding: '4rem 2rem', marginTop: '2rem' }}>
+              <h3 style={{ color: 'var(--accent)', fontSize: '1.6rem', marginBottom: '2rem', letterSpacing: '0.15em', fontWeight: '800' }}>
+                ようこそ新メソッドのトレーニングサイトへ
+              </h3>
+              <p style={{ fontSize: '1.2rem', lineHeight: '2.2', color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
+                ここはボイストレーナー兼声優の、<br/>なぎぃ/神薙拓那 が運営する総合案内サイトです。<br /><br />
+                メニューから、自己紹介やレッスン内容、<br/>ご依頼の詳細などをご覧ください。
+              </p>
+            </div>
+          </div>
+        );
       case 'profile':
         return (
           <div className="page-content fade-in">
@@ -351,6 +366,7 @@ function App() {
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>L</span>ESSON
         </h1>
         <ul className="nav-menu">
+          <li className={activeTab === 'welcome' ? 'active' : ''} onClick={() => setActiveTab('welcome')}>ようこそ</li>
           <li className={activeTab === 'profile' ? 'active' : ''} onClick={() => setActiveTab('profile')}>自己紹介</li>
           <li className={activeTab === 'lessons' ? 'active' : ''} onClick={() => setActiveTab('lessons')}>レッスン内容及び金額表</li>
           <li className={activeTab === 'canva' ? 'active' : ''} onClick={() => setActiveTab('canva')}>

@@ -455,3 +455,62 @@ h2::after {
   background: rgba(0, 0, 0, 0.1);
   margin: 0;
 }
+
+/* ==========================================================================
+   Mobile Responsive Adjustments
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  .layout-container {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 1.5rem 0;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .nav-menu li {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
+    flex: 1 1 calc(50% - 1.5rem);
+    text-align: center;
+    justify-content: center;
+  }
+
+  .logo {
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+  }
+
+  .content-area {
+    overflow-y: visible;
+  }
+
+  .page-content {
+    padding: 2rem 1.2rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-section h2 {
+    font-size: 2rem !important;
+  }
+
+  .pricing-cards {
+    grid-template-columns: 1fr;
+  }
+}
