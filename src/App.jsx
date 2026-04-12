@@ -36,7 +36,8 @@ const NoteEmbed = ({ noteId }) => {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState('welcome')
+  const [activeTab, setActiveTab] = useState('welcome');
+  const [viewMode, setViewMode] = useState('auto');
 
   const renderContent = () => {
     switch(activeTab) {
@@ -48,10 +49,29 @@ function App() {
               <h3 style={{ color: 'var(--accent)', fontSize: '1.6rem', marginBottom: '2rem', letterSpacing: '0.15em', fontWeight: '800' }}>
                 ようこそ新メソッドのトレーニングサイトへ
               </h3>
-              <p style={{ fontSize: '1.2rem', lineHeight: '2.2', color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
-                ここはボイストレーナー兼声優の、<br/>なぎぃ/神薙拓那 が運営する総合案内サイトです。<br /><br />
-                メニューから、自己紹介やレッスン内容、<br/>ご依頼の詳細などをご覧ください。
+              <p style={{ fontSize: '1.2rem', lineHeight: '2.2', color: 'var(--text-primary)', letterSpacing: '0.05em', marginBottom: '3rem' }}>
+                ここはボイストレーナー兼声優役者指導者である<br />神薙拓那のホームページです
               </p>
+
+              <div style={{ paddingTop: '2rem', borderTop: '1px dashed rgba(255,255,255,0.2)' }}>
+                <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', fontWeight: 'bold' }}>
+                  どちらで観覧しますか？
+                </p>
+                <div className="device-toggles">
+                  <button 
+                    className={`device-btn ${viewMode === 'mobile' ? 'active' : ''}`}
+                    onClick={() => setViewMode('mobile')}
+                  >
+                    スマートフォン
+                  </button>
+                  <button 
+                    className={`device-btn ${viewMode === 'desktop' ? 'active' : ''}`}
+                    onClick={() => setViewMode('desktop')}
+                  >
+                    パソコン
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -358,7 +378,7 @@ function App() {
   }, [activeTab]);
 
   return (
-    <div className="layout-container">
+    <div className={`layout-container ${viewMode !== 'auto' ? `force-${viewMode}` : ''}`}>
       <nav className="sidebar">
         <h1 className="logo" style={{ fontFamily: 'var(--font-en)', fontSize: '1.6rem', lineHeight: '1.1', textAlign: 'left', fontWeight: '800', marginLeft: '1.2rem' }}>
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>K</span>AMINAGI<br />

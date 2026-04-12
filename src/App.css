@@ -460,57 +460,62 @@ h2::after {
    Mobile Responsive Adjustments
    ========================================================================== */
 @media screen and (max-width: 768px) {
-  .layout-container {
+  .layout-container:not(.force-desktop) {
     flex-direction: column;
     overflow-y: auto;
   }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    padding: 1.5rem 0;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  .layout-container:not(.force-desktop) .sidebar {
+    width: 100%; height: auto; padding: 1.5rem 0; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   }
-
-  .nav-menu {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
+  .layout-container:not(.force-desktop) .nav-menu {
+    flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
   }
-
-  .nav-menu li {
-    padding: 0.6rem 0.5rem;
-    font-size: 0.85rem;
-    flex: 1 1 calc(50% - 1.5rem);
-    text-align: center;
-    justify-content: center;
+  .layout-container:not(.force-desktop) .nav-menu li {
+    padding: 0.6rem 0.5rem; font-size: 0.85rem; flex: 1 1 calc(50% - 1.5rem); text-align: center; justify-content: center;
   }
-
-  .logo {
-    margin-bottom: 1.2rem;
-    font-size: 1.4rem;
+  .layout-container:not(.force-desktop) .logo {
+    margin-bottom: 1.2rem; font-size: 1.4rem;
   }
+  .layout-container:not(.force-desktop) .content-area { overflow-y: visible; }
+  .layout-container:not(.force-desktop) .page-content { padding: 2rem 1.2rem; }
+  .layout-container:not(.force-desktop) h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  .layout-container:not(.force-desktop) .hero-section h2 { font-size: 2rem !important; }
+  .layout-container:not(.force-desktop) .pricing-cards { grid-template-columns: 1fr; }
+}
 
-  .content-area {
-    overflow-y: visible;
-  }
+/* Force Mobile Override */
+.layout-container.force-mobile {
+  flex-direction: column; overflow-y: auto;
+}
+.layout-container.force-mobile .sidebar { width: 100%; height: auto; padding: 1.5rem 0; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.layout-container.force-mobile .nav-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+.layout-container.force-mobile .nav-menu li { padding: 0.6rem 0.5rem; font-size: 0.85rem; flex: 1 1 calc(50% - 1.5rem); text-align: center; justify-content: center; }
+.layout-container.force-mobile .logo { margin-bottom: 1.2rem; font-size: 1.4rem; }
+.layout-container.force-mobile .content-area { overflow-y: visible; }
+.layout-container.force-mobile .page-content { padding: 2rem 1.2rem; }
+.layout-container.force-mobile h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+.layout-container.force-mobile .hero-section h2 { font-size: 2rem !important; }
+.layout-container.force-mobile .pricing-cards { grid-template-columns: 1fr; }
 
-  .page-content {
-    padding: 2rem 1.2rem;
-  }
+/* Force Desktop Override (to cancel media query on small screens if requested) */
+.layout-container.force-desktop {
+  flex-direction: row !important; overflow: hidden !important;
+}
+.layout-container.force-desktop .sidebar {
+  width: 280px !important; height: 100vh !important; padding: 2.5rem 0 !important;
+}
+.layout-container.force-desktop .nav-menu { flex-direction: column !important; flex-wrap: nowrap !important; }
 
-  h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-section h2 {
-    font-size: 2rem !important;
-  }
-
-  .pricing-cards {
-    grid-template-columns: 1fr;
-  }
+/* Device Selection Buttons */
+.device-toggles {
+  display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;
+}
+.device-btn {
+  background: rgba(15, 23, 42, 0.8); border: 2px solid var(--border-color); color: var(--text-secondary);
+  padding: 1rem 2rem; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer;
+  transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
+}
+.device-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); border-color: var(--text-primary); }
+.device-btn.active {
+  background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
 }
