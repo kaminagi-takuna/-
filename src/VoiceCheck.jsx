@@ -231,11 +231,62 @@ function generateComment(scores) {
   });
 }
 
+// ============================
+// タイプ別診断
+// axes index: [呼気圧(0), 頭蓋共鳴(1), 鼻腔共鳴(2), 口腔共鳴(3), 咽頭共鳴(4), 胸部共鳴(5)]
+// ============================
+const VOICE_TYPES = [
+  { id: 1,  icon: '🔥', name: 'エンジン全開タイプ',     desc: '声のパワーがずば抜けてる！場の空気を変える力を持っている' },
+  { id: 2,  icon: '🌤️', name: '天の響きタイプ',         desc: '澄んでいて空に抜けていく声。高音の美しさが際立つ' },
+  { id: 3,  icon: '🌍', name: '大地の声タイプ',         desc: 'どっしりした低音で聴く人をホッとさせる、安定感の声' },
+  { id: 4,  icon: '☀️', name: '太陽みたいな声タイプ',   desc: '明るく前に飛ぶ！人の心に直接届く元気をくれる声' },
+  { id: 5,  icon: '🍵', name: '懐の深いタイプ',         desc: '温かみと奥行きが両立。つい聴き入ってしまう魅力的な声' },
+  { id: 6,  icon: '🎯', name: 'フルパッケージタイプ',   desc: 'どんな場面にも対応できる、完成度の高い万能な声' },
+  { id: 7,  icon: '⚡', name: '嵐タイプ',               desc: '力強さと重みを兼備。圧倒的な存在感で場を支配する声' },
+  { id: 8,  icon: '🏛️', name: 'ホールを満たすタイプ',   desc: '高さと広がりで空間を支配。映える声の持ち主' },
+  { id: 9,  icon: '🌙', name: 'ミステリアスタイプ',     desc: '独特の色気と深み。ほかの人と被らない個性的な声' },
+  { id: 10, icon: '🏹', name: '一点突破タイプ',         desc: '鋭く、遠くまで届く。突き刺さるような高音の持ち主' },
+  { id: 11, icon: '🌅', name: 'お日さまタイプ',         desc: '温かみと豊かさで包み込む。聴く人を安心させる声' },
+  { id: 12, icon: '🚣', name: '自分探しの旅人タイプ',   desc: 'なりたい！も、自分向きも探せる可能性の旅人。未来は無限大！' },
+];
+
+function determineVoiceType(scores) {
+  const [kiki, zukai, biku, kouku, intou, kyobu] = scores;
+  const H = 6; // 「高い」の閾値
+  const h = (v) => v >= H;
+
+  // フルパッケージ（5軸以上が高い）
+  if (scores.filter(h).length >= 5) return VOICE_TYPES[5];
+  // 呼気圧＋胸部 → 嵐
+  if (h(kiki) && h(kyobu)) return VOICE_TYPES[6];
+  // 呼気圧＋頭蓋 → 一点突破
+  if (h(kiki) && h(zukai)) return VOICE_TYPES[9];
+  // 呼気圧のみ → エンジン全開
+  if (h(kiki)) return VOICE_TYPES[0];
+  // 頭蓋＋鼻腔 → 天の響き
+  if (h(zukai) && h(biku)) return VOICE_TYPES[1];
+  // 頭蓋＋口腔 → ホールを満たす
+  if (h(zukai) && h(kouku)) return VOICE_TYPES[7];
+  // 鼻腔＋口腔 → 太陽みたいな声
+  if (h(biku) && h(kouku)) return VOICE_TYPES[3];
+  // 鼻腔＋咽頭 → ミステリアス
+  if (h(biku) && h(intou)) return VOICE_TYPES[8];
+  // 口腔＋咽頭 → 懐の深い
+  if (h(kouku) && h(intou)) return VOICE_TYPES[4];
+  // 胸部＋口腔 → お日さま
+  if (h(kyobu) && h(kouku)) return VOICE_TYPES[10];
+  // 咽頭＋胸部 → 大地の声
+  if (h(intou) && h(kyobu)) return VOICE_TYPES[2];
+  // fallback → 自分探しの旅人
+  return VOICE_TYPES[11];
+}
+
 export default function VoiceCheck() {
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
   const [scores, setScores] = useState([0, 0, 0, 0, 0, 0]);
   const resultRef = useRef(null);
+  const voiceType = showResult ? determineVoiceType(scores) : null;
 
   const allAnswered = QUESTIONS.every((q) => answers[q.id] !== undefined);
 
@@ -415,6 +466,27 @@ export default function VoiceCheck() {
       {/* 結果エリア */}
       {showResult && (
         <div className="vc-result fade-in" ref={resultRef}>
+
+          {/* タイプ診断カード */}
+          {voiceType && (
+            <div className="vc-type-card">
+              <p className="vc-type-label">あなたの声タイプは…</p>
+              <div className="vc-type-icon">{voiceType.icon}</div>
+              <h3 className="vc-type-name">「{voiceType.name}」</h3>
+              <p className="vc-type-desc">{voiceType.desc}</p>
+              <button
+                className="vc-share-btn"
+                onClick={() => {
+                  const siteUrl = window.location.origin;
+                  const text = `🎙️ 発声タイプ診断やってみた！\n\n私のタイプは…\n${voiceType.icon}「${voiceType.name}」\n\n${voiceType.desc}\n\nあなたはどのタイプ？\n▶ ${siteUrl}\n\n#発声診断 #ボイストレーニング`;
+                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+                }}
+              >
+                𝕏 このタイプをポストする
+              </button>
+            </div>
+          )}
+
           <h3 className="vc-result-title">あなたの発声バランス</h3>
 
           <div className="vc-chart-wrap">
