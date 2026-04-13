@@ -53,7 +53,7 @@ function App() {
           <div className="page-content fade-in">
             <h2>ようこそ</h2>
             <div className="content-card" style={{ textAlign: 'center', padding: '4rem 2rem', marginTop: '2rem' }}>
-              <p style={{ color: 'var(--accent)', fontSize: '0.9rem', marginBottom: '0.5rem', fontWeight: 'bold', letterSpacing: '0.1em' }}>KAMINAGI ONLINE LESSON LABORATORY</p>
+              <p style={{ color: 'var(--accent)', fontSize: '0.9rem', marginBottom: '0.5rem', fontWeight: 'bold', letterSpacing: '0.1em' }}>KAMINAGI ONLINE LESSON<br className="sp-only" /> LABORATORY</p>
               <h3 style={{ color: 'var(--accent)', fontSize: '1.6rem', marginBottom: '2rem', letterSpacing: '0.15em', fontWeight: '800' }}>
                 ようこそ<br className="sp-only" />新メソッドの<br className="sp-only" />トレーニングサイト<br className="sp-only" />へ
               </h3>
@@ -391,14 +391,17 @@ function App() {
           <span style={{ color: 'var(--accent)' }}>L</span>ESSON<br />
           <span style={{ color: 'var(--accent)', opacity: 0.8, fontSize: '0.8rem' }}>LABORATORY</span>
         </div>
-        <button 
-          className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`} 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', marginTop: '5px' }}>
+          <button 
+            className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`} 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <span style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', fontWeight: 'bold' }}>MENU</span>
+        </div>
       </div>
 
       {/* Hamburger Menu Overlay */}
