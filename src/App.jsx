@@ -238,7 +238,7 @@ function App() {
                 style={{ maxWidth: '100%', borderRadius: '12px', marginBottom: '3rem', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 8px 30px rgba(0,0,0,0.3)' }} 
               />
               <h3 style={{ color: 'var(--accent)', fontSize: '1.6rem', marginBottom: '2rem', letterSpacing: '0.15em', fontWeight: '800' }}>
-                【ボイトレ×芝居×歌】
+                ボイトレ×芝居×歌
               </h3>
               <p style={{ fontSize: '1.3rem', lineHeight: '2.5', fontWeight: '600', color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
                 プロ志望をプロにする<br className="sp-only" />メソッド<br />
