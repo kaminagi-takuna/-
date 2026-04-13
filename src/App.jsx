@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
+
 const TweetEmbed = ({ tweetId }) => {
   useEffect(() => {
     if (!window.twttr) {
@@ -71,15 +72,16 @@ function App() {
             
             <div className="section-block">
               <h3 className="section-title">PROFILE</h3>
-              <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>ボイストレーナー・声優講師・ボイスサンプル原稿作成<br/>レコーディングディレクター（歌・セリフ）</p>
-              <p style={{ color: 'var(--accent)', marginTop: '0.5rem' }}>様々な経験と実績に裏打ちされた技術を通話で惜しみなくお届けします。</p>
+              <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>ボイストレーナー・声優講師<br className="sp-only" />・ボイスサンプル原稿作成<br/>レコーディングディレクター（歌・セリフ）</p>
+              <p style={{ color: 'var(--accent)', marginTop: '0.5rem' }}>様々な経験と実績に裏打ちされた技術を<br className="sp-only" />通話で惜しみなくお届けします。</p>
 
               <div className="profile-details">
-                北海道出身・在住。札幌で舞台・ラジオドラマ声優などを経験。<br/>
-                その時期に先輩方のおかげで「体の動きが声に乗る大切さ」を学び、声と身体の関係性を学びなおす。<br/>
-                声を聴くだけで姿勢・体の状態が把握できるまでとなり、その技術を使用して通話レッスンを開始。<br/><br/>
-                発声のロジックと演技のロジックを組み合わせた指導は、現在声優やVtuberといった配信者にも信頼を得るに至り、10年以上のレッスン実績を持つ。<br/>
-                声でお悩みの方。機材でお悩みの方。プロを目指す方。遊びの範囲で気軽にレッスンしたい方。<br/>
+                北海道出身・在住。<br className="sp-only" />
+                札幌で舞台・ラジオドラマ声優など<br className="sp-only" />を経験。<br/>
+                その時期に先輩方のおかげで<br className="sp-only" />「体の動きが声に乗る大切さ」<br className="sp-only" />を学び、<br className="sp-only" />声と身体の関係性を学びなおす。<br/>
+                声を聴くだけで姿勢・体の状態が<br className="sp-only" />把握できるまでとなり、<br className="sp-only" />その技術を使用して<br className="sp-only" />通話レッスンを開始。<br/><br/>
+                発声のロジックと演技のロジックを<br className="sp-only" />組み合わせた指導は、<br className="sp-only" />現在声優やVtuberといった<br className="sp-only" />配信者にも信頼を得るに至り、<br className="sp-only" />10年以上のレッスン実績を持つ。<br/>
+                声でお悩みの方。<br className="sp-only" />機材でお悩みの方。<br className="sp-only" />プロを目指す方。<br className="sp-only" />遊びの範囲で気軽にレッスンしたい方。<br/>
                 必ずあなたの助けになります。
               </div>
             </div>
@@ -114,21 +116,21 @@ function App() {
                     <strong style={{ color: 'var(--text-primary)', fontSize: '1.1rem' }}>🎬 アニメ</strong>
                     <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', lineHeight: '1.8' }}>
                       Ｇガンダム / Ｗガンダム<br/>
-                      異世界食堂 / とんでもスキルで異世界飯<br/>
+                      異世界食堂 <br className="sp-only" />/ とんでもスキルで異世界飯<br/>
                       頭文字Ｄ
                     </p>
                   </div>
                   <div>
                     <strong style={{ color: 'var(--text-primary)', fontSize: '1.1rem' }}>📺 ドラマ</strong>
                     <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', lineHeight: '1.8' }}>
-                      おっさんずラブ / ロイヤルファミリー
+                      おっさんずラブ<br className="sp-only" /> / ロイヤルファミリー
                     </p>
                   </div>
                   <div>
                     <strong style={{ color: 'var(--text-primary)', fontSize: '1.1rem' }}>🎮 ゲーム</strong>
                     <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', lineHeight: '1.8' }}>
-                      レーシングラグーン / せがれいじり<br/>
-                      あつまれどうぶつの森 / スプラトゥーン３
+                      レーシングラグーン<br className="sp-only" /> / せがれいじり<br/>
+                      あつまれどうぶつの森 <br className="sp-only" />/ スプラトゥーン３
                     </p>
                   </div>
                 </div>
@@ -142,7 +144,7 @@ function App() {
             <h2>レッスン内容及び金額表</h2>
             <div className="info-banner">
               <p style={{ lineHeight: '1.8' }}>
-                <strong style={{ color: 'var(--accent)' }}>レッスン実施時間</strong>: 14:00～18:00 / 22:00～02:00<br/>
+                <strong style={{ color: 'var(--accent)' }}>レッスン実施時間</strong>:<br className="sp-only" /> 14:00～18:00 / 22:00～02:00<br/>
                 <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>※在宅介護のため上記の時間とさせていただいております。<br/>
                 ※上記以上の時間や、時間外を希望の場合は応相談となります。<br/>
                 ※お支払いは銀行振り込み（後払い）のみの対応となります。</span>
@@ -152,7 +154,7 @@ function App() {
             <div className="pricing-cards">
               <div className="price-card">
                 <h3>昼間</h3>
-                <p className="desc">夜コースと同じ内容ですが、介護の関係で昼間の時間をレッスンに割くため値上がりしています。</p>
+                <p className="desc">夜コースと同じ内容ですが、<br className="sp-only" />介護の関係で昼間の時間を<br className="sp-only" />レッスンに割くため<br className="sp-only" />値上がりしています。</p>
                 <ul>
                   <li><span>60分</span><span>10,000円</span></li>
                   <li><span>120分</span><span>15,000円</span></li>
@@ -162,7 +164,7 @@ function App() {
 
               <div className="price-card popular">
                 <h3>夜間</h3>
-                <p className="desc">時間を確保しやすい夜間のため、お安めの基本料金でお受けできます。ディレクション等も幅広く対応。</p>
+                <p className="desc">時間を確保しやすい夜間のため、<br className="sp-only" />お安めの基本料金でお受けできます。<br className="sp-only" />ディレクション等も幅広く対応。</p>
                 <ul>
                   <li><span>60分</span><span>5,000円</span></li>
                   <li><span>120分</span><span>8,000円</span></li>
@@ -172,7 +174,7 @@ function App() {
 
               <div className="price-card pro">
                 <h3>プロコース</h3>
-                <p className="desc">踏み込んだ深い内容向け。プロの現場で通用する情報を実践して持ち帰るブーストコースです。</p>
+                <p className="desc">踏み込んだ深い内容向け。<br className="sp-only" />プロの現場で通用する情報を実践して<br className="sp-only" />持ち帰るブーストコースです。</p>
                 <ul>
                   <li><span>60分</span><span>15,000円</span></li>
                   <li><span>120分</span><span>24,000円</span></li>
@@ -181,7 +183,7 @@ function App() {
               </div>
             </div>
             <p style={{ marginTop: '2rem', textAlign: 'center', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-              月に何度かご依頼いただいた場合、お値下げの交渉も受け付けております。
+              月に何度かご依頼いただいた場合、<br className="sp-only" />お値下げの交渉も受け付けております。
             </p>
           </div>
         );
@@ -193,7 +195,7 @@ function App() {
               <span>最新の発信</span>
             </h2>
             <p style={{ color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '1.5rem', letterSpacing: '0.05em' }}>
-              声優・ナレーターとしての活動や、独自のメソッドを発信しています。
+              声優・ナレーターとしての活動や、<br className="sp-only" />独自のメソッドを発信しています。
             </p>
             <div className="sns-feed" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
               <TweetEmbed tweetId="2041389006500634862" />
@@ -209,7 +211,7 @@ function App() {
           <div className="page-content fade-in">
             <h2 style={{ borderBottom: 'none' }}>note 執筆記事</h2>
             <p style={{ color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '1.5rem', letterSpacing: '0.05em' }}>
-              ロジカルな発声理論から現場スキルまで、声にまつわるより深い考察。
+              ロジカルな発声理論から現場スキルまで、<br className="sp-only" />声にまつわるより深い考察。
             </p>
             <div className="sns-feed" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
               <NoteEmbed noteId="ndfa02e7a1680" />
@@ -225,8 +227,8 @@ function App() {
         return (
           <div className="page-content fade-in">
             <div className="hero-section">
-              <h2 style={{ fontSize: '3.6rem', borderBottom: 'none', marginBottom: '1.5rem', letterSpacing: '0.2em' }}>気軽に 自宅で 巧くなる</h2>
-              <p className="hero-sub">自宅で変わる、ボイスデザイン<br/>発信者の声をより良くする 新しいカタチ</p>
+              <h2 style={{ fontSize: '3.6rem', borderBottom: 'none', marginBottom: '1.5rem', letterSpacing: '0.2em' }}>気軽に 自宅で<br className="sp-only" /> 巧くなる</h2>
+              <p className="hero-sub">自宅で変わる、ボイスデザイン<br/>発信者の声をより良くする<br className="sp-only" />新しいカタチ</p>
             </div>
 
             <div className="content-card" style={{ textAlign: 'center', padding: '4rem 2rem', marginBottom: '4rem' }}>
@@ -239,10 +241,10 @@ function App() {
                 【ボイトレ×芝居×歌】
               </h3>
               <p style={{ fontSize: '1.3rem', lineHeight: '2.5', fontWeight: '600', color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
-                プロ志望をプロにするメソッド<br />
+                プロ志望をプロにする<br className="sp-only" />メソッド<br />
                 10年以上の指導を重ね<br />
-                構造と感覚をリンクさせるレッスンで<br />
-                あなたを「なりたい自分」にします
+                構造と感覚をリンクさせる<br className="sp-only" />レッスンで<br />
+                あなたを<br className="sp-only" />「なりたい自分」に<br className="sp-only" />します
               </p>
             </div>
 
@@ -253,9 +255,9 @@ function App() {
               </div>
               <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-secondary)', textAlign: 'center' }}>
                 カメラ不要の通話レッスン。<br/>
-                ボイトレ、声優の芝居レッスンから朗読レッスン<br/>
+                ボイトレ、声優の芝居レッスンから<br className="sp-only" />朗読レッスン<br/>
                 初心者の基本発声まで承ります。<br/><br/>
-                まずはお気軽にメールフォームからお問い合わせください。
+                まずはお気軽にメールフォームから<br className="sp-only" />お問い合わせください。
               </p>
             </div>
 
@@ -292,9 +294,9 @@ function App() {
                   <span style={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--accent)' }}>10,000円</span>
                 </div>
                 <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-                  歌ってみたを作成する方の、ボーカルセレクトを行います。<br/>
-                  フル歌唱のボーカル音源を３本お送りいただき、ベストテイクを組み合わせます。<br/><br/>
-                  <span style={{ color: '#f59e0b', fontSize: '0.95rem', fontWeight: 'bold' }}>※ボーカル音源１本追加につき ＋4,000円とさせていただきます。</span>
+                  歌ってみたを作成する方の、<br className="sp-only" />ボーカルセレクトを行います。<br/>
+                  フル歌唱のボーカル音源を<br className="sp-only" />３本お送りいただき、<br className="sp-only" />ベストテイクを組み合わせます。<br/><br/>
+                  <span style={{ color: '#f59e0b', fontSize: '0.95rem', fontWeight: 'bold' }}>※ボーカル音源１本追加につき <br className="sp-only" />＋4,000円とさせていただきます。</span>
                 </p>
               </div>
             </div>
@@ -305,33 +307,33 @@ function App() {
           <div className="page-content fade-in">
             <h2>お問い合わせ</h2>
             <p style={{marginBottom: '2rem', color: 'var(--text-secondary)', textAlign: 'center'}}>
-              レッスンのお申し込みや、各種お問い合わせはこちらからお願いいたします。
+              レッスンのお申し込みや、<br className="sp-only" />各種お問い合わせは<br className="sp-only" />こちらからお願いいたします。
             </p>
 
             <div className="content-card" style={{ marginBottom: '3rem', padding: '2rem', backgroundColor: 'rgba(30, 41, 59, 0.4)' }}>
               <h4 style={{ color: 'var(--accent)', marginBottom: '1rem', fontSize: '1.1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem' }}>
-                入力フォーム途中にあるフリースペースに、以下の内容をご記入ください。
+                入力フォーム途中にある<br className="sp-only" />フリースペースに、<br className="sp-only" />以下の内容をご記入ください。
               </h4>
               
               <ul style={{ listStyleType: 'none', padding: 0, margin: 0, color: 'var(--text-secondary)', lineHeight: '1.8', fontSize: '0.95rem' }}>
                 <li style={{ marginBottom: '1.5rem' }}>
                   <strong style={{ color: 'var(--text-primary)' }}>・ボイトレ含むレッスンの場合</strong><br/>
-                  希望内容とご希望の日時、単発、複数回などご記入ください。上記項目でご記入いただいたDiscordアカウントをこちらで登録し、ご連絡いたします。
+                  希望内容と<br className="sp-only" />ご希望の日時、単発、複数回など<br className="sp-only" />ご記入ください。<br className="sp-only" />上記項目でご記入いただいた<br className="sp-only" />Discordアカウントをこちらで登録し、<br className="sp-only" />ご連絡いたします。
                 </li>
                 <li style={{ marginBottom: '1.5rem' }}>
                   <strong style={{ color: 'var(--text-primary)' }}>・原稿依頼の場合</strong><br/>
-                  必要な原稿の分数、本数、ご予算などをご記入ください。<br/>
-                  上記項目でご記入いただいたDiscordアカウントを登録しご連絡、もしくはメールアドレスにてご連絡いたします。
+                  必要な原稿の分数、本数、ご予算など<br className="sp-only" />をご記入ください。<br/>
+                  上記項目でご記入いただいた<br className="sp-only" />Discordアカウントを登録しご連絡、<br className="sp-only" />もしくはメールアドレスにて<br className="sp-only" />ご連絡いたします。
                 </li>
                 <li style={{ marginBottom: '1.5rem' }}>
-                  <strong style={{ color: 'var(--text-primary)', marginRight: '1em' }}>個人のご依頼</strong>お名前、使用目的、ご予算、あれば原稿内容
+                  <strong style={{ color: 'var(--text-primary)', marginRight: '1em' }}>個人のご依頼</strong>お名前、使用目的、ご予算、<br className="sp-only" />あれば原稿内容
                 </li>
                 <li style={{ marginBottom: '1.5rem' }}>
-                  <strong style={{ color: 'var(--text-primary)', marginRight: '1em' }}>法人のご依頼</strong>会社名、案件内容、競合の有無、可能であればご予算
+                  <strong style={{ color: 'var(--text-primary)', marginRight: '1em' }}>法人のご依頼</strong>会社名、案件内容、競合の有無、<br className="sp-only" />可能であればご予算
                 </li>
                 <li style={{ borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
-                  上記項目でご記入いただいたDiscordアカウントを登録しご連絡、<br/>
-                  もしくはメールアドレスにてご連絡いたします。
+                  上記項目でご記入いただいた<br className="sp-only" />Discordアカウントを登録しご連絡、<br/>
+                  もしくはメールアドレスにて<br className="sp-only" />ご連絡いたします。
                 </li>
               </ul>
             </div>
