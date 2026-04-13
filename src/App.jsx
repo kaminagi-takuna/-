@@ -53,6 +53,7 @@ function App() {
           <div className="page-content fade-in">
             <h2>ようこそ</h2>
             <div className="content-card" style={{ textAlign: 'center', padding: '4rem 2rem', marginTop: '2rem' }}>
+              <p style={{ color: 'var(--accent)', fontSize: '0.9rem', marginBottom: '0.5rem', fontWeight: 'bold', letterSpacing: '0.1em' }}>KAMINAGI ONLINE LESSON LABORATORY</p>
               <h3 style={{ color: 'var(--accent)', fontSize: '1.6rem', marginBottom: '2rem', letterSpacing: '0.15em', fontWeight: '800' }}>
                 ようこそ<br className="sp-only" />新メソッドの<br className="sp-only" />トレーニングサイト<br className="sp-only" />へ
               </h3>
@@ -61,7 +62,16 @@ function App() {
                 ボイストレーナー<br className="sp-only" />
                 兼<br className="sp-only" />
                 声優役者指導者である<br />
-                神薙拓那のホームページです
+                神薙拓那のホームページです<br />
+                発声　芝居　歌などの<br className="sp-only" />
+                研究を重ねてきた<br />
+                全ての結果を<br className="sp-only" />
+                あなたに伝えます<br />
+                レッスン内容を販売するnoteや<br className="sp-only" />
+                有益な情報を流すＸなど<br />
+                各リンクはサイドバーへ<br />
+                発声状態診断も<br className="sp-only" />
+                お楽しみください
               </p>
             </div>
           </div>
@@ -375,8 +385,11 @@ function App() {
     <div className="layout-container">
       {/* Mobile Top Header (Visible only on mobile via CSS) */}
       <div className="mobile-header sp-only-flex">
-        <div className="mobile-logo">
-          <span style={{ color: 'var(--accent)' }}>K</span>AMINAGI <span style={{ color: 'var(--accent)' }}>O</span>NLINE <span style={{ color: 'var(--accent)' }}>L</span>ESSON
+        <div className="mobile-logo" style={{ textAlign: 'left', lineHeight: '1.2' }}>
+          <span style={{ color: 'var(--accent)' }}>K</span>AMINAGI<br />
+          <span style={{ color: 'var(--accent)' }}>O</span>NLINE<br />
+          <span style={{ color: 'var(--accent)' }}>L</span>ESSON<br />
+          <span style={{ color: 'var(--accent)', opacity: 0.8, fontSize: '0.8rem' }}>LABORATORY</span>
         </div>
         <button 
           className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`} 
@@ -397,7 +410,8 @@ function App() {
         <h1 className="logo desktop-logo" style={{ fontFamily: 'var(--font-en)', fontSize: '1.6rem', lineHeight: '1.1', textAlign: 'left', fontWeight: '800', marginLeft: '1.2rem' }}>
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>K</span>AMINAGI<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>O</span>NLINE<br />
-          <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>L</span>ESSON
+          <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>L</span>ESSON<br />
+          <span style={{ fontSize: '1.2rem', opacity: 0.6, letterSpacing: '0.1em' }}>LABORATORY</span>
         </h1>
         <ul className="nav-menu">
           <li className={activeTab === 'welcome' ? 'active' : ''} onClick={() => handleTabChange('welcome')}>ようこそ</li>
