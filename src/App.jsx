@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import VoiceCheck from './VoiceCheck.jsx'
 
 
 const TweetEmbed = ({ tweetId }) => {
@@ -354,6 +355,8 @@ function App() {
             </div>
           </div>
         );
+      case 'voicecheck':
+        return <VoiceCheck />;
       default:
         return <div>選択してください。</div>;
     }
@@ -402,6 +405,9 @@ function App() {
           <li className={activeTab === 'lessons' ? 'active' : ''} onClick={() => handleTabChange('lessons')}>レッスン内容及び金額表</li>
           <li className={activeTab === 'canva' ? 'active' : ''} onClick={() => handleTabChange('canva')}>
             <span>依頼詳細</span>
+          </li>
+          <li className={activeTab === 'voicecheck' ? 'active' : ''} onClick={() => handleTabChange('voicecheck')}>
+            <span>発声状態チェック</span>
           </li>
           <li className={activeTab === 'twitter' ? 'active' : ''} onClick={() => handleTabChange('twitter')}>
             <span style={{ fontFamily: 'var(--font-en)' }}>Twitter</span>
