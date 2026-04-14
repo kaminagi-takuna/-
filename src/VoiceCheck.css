@@ -419,6 +419,48 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* ---- レコメンドセクション ---- */
+.vc-recommend {
+  margin-top: 3.5rem;
+  padding-top: 3.5rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.vc-recommend-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.vc-recommend-sub {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.vc-note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.vc-note-card {
+  width: 100%;
+  max-width: 550px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.vc-note-card:hover {
+  transform: translateY(-5px);
+}
+
 /* ============================================================
    モバイル対応
    ============================================================ */

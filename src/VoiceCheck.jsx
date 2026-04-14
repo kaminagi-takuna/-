@@ -215,6 +215,31 @@ const AXIS_MESSAGES = [
   },
 ];
 
+// 各軸に対応するnote記事の定義 (IDはURLの末尾部分)
+const AXIS_NOTES = [
+  { axisIndex: 0, name: '呼気圧',   noteId: 'n3cf58f4f5328' },
+  { axisIndex: 1, name: '頭蓋共鳴', noteId: 'n8b227f7c2658' },
+  { axisIndex: 2, name: '鼻腔共鳴', noteId: 'n11a7757020b9' },
+  { axisIndex: 3, name: '口腔共鳴', noteId: 'nee2f4d7c666f' },
+  { axisIndex: 4, name: '咽頭共鳴', noteId: 'n062f02f71047' },
+  { axisIndex: 5, name: '胸部共鳴', noteId: 'na9a565f42913' },
+];
+
+function getRecommendations(scores) {
+  // スコアが低い順にソートして、上位3つ（ただし満点に近いものは除外したいが、基本は低いものから選ぶ）
+  // ユーザーが「足りない部分」と言っているので、単純に昇順ソートで上位3つを返す。
+  const items = AXIS_NOTES.map(note => ({
+    ...note,
+    score: scores[note.axisIndex]
+  }));
+  
+  // スコアで昇順ソート
+  items.sort((a, b) => a.score - b.score);
+  
+  // 最大3つを返す（もし特定のスコア以上なら除外するなどのロジックも可能だが、まずは単純に3つ）
+  return items.slice(0, 3);
+}
+
 // スコアから段階インデックスを取得
 function getLevel(score) {
   if (score >= 10) return 3;
@@ -287,6 +312,7 @@ export default function VoiceCheck() {
   const [scores, setScores] = useState([0, 0, 0, 0, 0, 0]);
   const resultRef = useRef(null);
   const voiceType = showResult ? determineVoiceType(scores) : null;
+  const recommendations = showResult ? getRecommendations(scores) : [];
 
   const allAnswered = QUESTIONS.every((q) => answers[q.id] !== undefined);
 
@@ -522,6 +548,26 @@ export default function VoiceCheck() {
               <span className="vc-cta-note">↓ サイドメニューの「メールフォーム」からお気軽にどうぞ</span>
             </div>
           </div>
+
+          {/* note レコメンドセクション */}
+          {recommendations.length > 0 && (
+            <div className="vc-recommend">
+              <h4 className="vc-recommend-title">📖 あなたに最適なメソッド（note）</h4>
+              <p className="vc-recommend-sub">現在のバランスから、特に伸ばしがいのある項目をピックアップしました。</p>
+              <div className="vc-note-list">
+                {recommendations.map((note) => (
+                  <div key={note.noteId} className="vc-note-card">
+                    <iframe
+                      src={`https://note.com/embed/notes/${note.noteId}`}
+                      title={`${note.name}の解説記事`}
+                      style={{ border: 0, display: 'block', maxWidth: '100%', width: '100%', height: '400px', borderRadius: '12px', background: '#fff' }}
+                      scrolling="no"
+                    ></iframe>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
