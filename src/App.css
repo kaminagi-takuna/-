@@ -532,7 +532,7 @@ h2::after {
   }
   
   .content-area { height: calc(100vh - 100px); overflow-y: auto; }
-  .page-content { padding: 2rem 1.2rem; }
+  .page-content { padding: 1.5rem 0.6rem; }
   h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
   .hero-section h2 { font-size: 2rem !important; }
   .pricing-cards { grid-template-columns: 1fr; }
