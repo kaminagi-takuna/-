@@ -9,6 +9,8 @@ const Schedule = () => {
   const [adminPassword, setAdminPassword] = useState('');
   const [clickCount, setClickCount] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
 
   // --- 設定：GoogleスプレッドシートのURLと暗証番号 ---
   const SHEET_CSV_URL = 'https://script.google.com/macros/s/AKfycbyXHUpbLBRqjv_ubyOt_Jh-I7_J4Wg-0Z38ciBvfvXwEA4DvZqyVCScGExbzLjo9AcyiA/exec'; // 閲覧用
@@ -22,10 +24,9 @@ const Schedule = () => {
     
     setLoading(true);
     try {
-      // キャッシュ回避のためにクエリパラメータを追加
       const response = await fetch(`${SHEET_CSV_URL}?t=${new Date().getTime()}`);
       const csvText = await response.text();
-      const rows = csvText.split('\n').slice(1); // ヘッダーを飛ばす
+      const rows = csvText.split('\n').slice(1);
       
       const newDict = {};
       rows.forEach(row => {
@@ -62,9 +63,11 @@ const Schedule = () => {
     
     setScheduleData(prev => {
       const current = prev[dateStr] || { day: 0, night: 0, note: '' };
-      // 0: 空き, 1: 予約あり, 4: 休み
-      // トグルロジック: 0 -> 1 -> 0 (簡易版)
-      const nextVal = current[type] === 1 ? 0 : 1;
+      // ステータス循環: 0 (空き) -> 1 (予約あり) -> 4 (休み) -> 0
+      let nextVal = 0;
+      if (current[type] === 0) nextVal = 1;
+      else if (current[type] === 1) nextVal = 4;
+      else if (current[type] === 4) nextVal = 0;
       
       return {
         ...prev,
@@ -87,7 +90,7 @@ const Schedule = () => {
     try {
       const response = await fetch(GAS_API_URL, {
         method: 'POST',
-        mode: 'no-cors', // GASへのPOSTは通常no-corsまたはリダイレクト処理が必要
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -97,7 +100,7 @@ const Schedule = () => {
         })
       });
       alert('保存リクエストを送信しました。\n(反映まで数秒〜数十秒かかる場合があります)');
-      fetchSchedule(); // 再読み込み
+      fetchSchedule();
     } catch (error) {
       console.error('Save failed:', error);
       alert('保存に失敗しました。');
@@ -105,9 +108,6 @@ const Schedule = () => {
       setIsSaving(false);
     }
   };
-
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [passwordInput, setPasswordInput] = useState('');
 
   // 管理者ログイン/ログアウト
   const handleAdminAuth = () => {
@@ -167,26 +167,20 @@ const Schedule = () => {
         <div key={d} className={`calendar-cell ${isToday ? 'today' : ''} ${isAdmin ? 'admin-editable' : ''}`}>
           <span className="date-num">{d}</span>
           <div className="status-indicators">
-            {status.day === 4 ? (
-              <span className="status-off" onClick={() => isAdmin && toggleStatus(dateStr, 'day')}>休</span>
-            ) : (
-              <>
-                <div 
-                  className={`indicator day ${status.day ? 'active' : ''}`} 
-                  onClick={() => isAdmin && toggleStatus(dateStr, 'day')}
-                  title="昼 (14:00-18:00)"
-                >
-                  <span>昼</span>
-                </div>
-                <div 
-                  className={`indicator night ${status.night ? 'active' : ''}`} 
-                  onClick={() => isAdmin && toggleStatus(dateStr, 'night')}
-                  title="夜 (22:00-02:00)"
-                >
-                  <span>夜</span>
-                </div>
-              </>
-            )}
+            <div 
+              className={`indicator day ${status.day === 1 ? 'active' : ''} ${status.day === 4 ? 'is-off' : ''}`} 
+              onClick={() => isAdmin && toggleStatus(dateStr, 'day')}
+              title={status.day === 4 ? "休業" : "昼 (14:00-18:00)"}
+            >
+              <span>{status.day === 4 ? '休' : '昼'}</span>
+            </div>
+            <div 
+              className={`indicator night ${status.night === 1 ? 'active' : ''} ${status.night === 4 ? 'is-off' : ''}`} 
+              onClick={() => isAdmin && toggleStatus(dateStr, 'night')}
+              title={status.night === 4 ? "休業" : "夜 (22:00-02:00)"}
+            >
+              <span>{status.night === 4 ? '休' : '夜'}</span>
+            </div>
           </div>
           {status.note && <div className="cell-note">{status.note}</div>}
         </div>
@@ -197,7 +191,6 @@ const Schedule = () => {
 
   return (
     <div className={`schedule-container fade-in ${isAdmin ? 'admin-mode' : ''}`}>
-      {/* カスタムログインモーダル */}
       {showLoginModal && (
         <div className="admin-modal-overlay">
           <div className="admin-modal-content">
@@ -266,6 +259,7 @@ const Schedule = () => {
           <div className="legend-item"><span className="dot active-day"></span> 予約あり(昼)</div>
           <div className="legend-item"><span className="dot active-night"></span> 予約あり(夜)</div>
           <div className="legend-item"><span className="dot empty-dot"></span> 空き</div>
+          <div className="legend-item"><span className="dot off-dot"></span> 休業</div>
         </div>
       </div>
 

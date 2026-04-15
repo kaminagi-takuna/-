@@ -422,11 +422,11 @@ function App() {
         <ul className="nav-menu">
           <li className={activeTab === 'welcome' ? 'active' : ''} onClick={() => handleTabChange('welcome')}>ようこそ</li>
           <li className={activeTab === 'profile' ? 'active' : ''} onClick={() => handleTabChange('profile')}>自己紹介</li>
-          <li className={activeTab === 'schedule' ? 'active' : ''} onClick={() => handleTabChange('schedule')}>スケジュール</li>
           <li className={activeTab === 'lessons' ? 'active' : ''} onClick={() => handleTabChange('lessons')}>レッスン内容及び金額表</li>
           <li className={activeTab === 'canva' ? 'active' : ''} onClick={() => handleTabChange('canva')}>
             <span>依頼詳細</span>
           </li>
+          <li className={activeTab === 'schedule' ? 'active' : ''} onClick={() => handleTabChange('schedule')}>スケジュール</li>
           <li className={activeTab === 'voicecheck' ? 'active' : ''} onClick={() => handleTabChange('voicecheck')}>
             <span>発声状態チェック</span>
           </li>
