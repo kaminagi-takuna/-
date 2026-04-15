@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import VoiceCheck from './VoiceCheck.jsx'
+import Schedule from './Schedule.jsx'
 
 
 const TweetEmbed = ({ tweetId }) => {
@@ -367,6 +368,8 @@ function App() {
         );
       case 'voicecheck':
         return <VoiceCheck />;
+      case 'schedule':
+        return <Schedule />;
       default:
         return <div>選択してください。</div>;
     }
@@ -419,6 +422,7 @@ function App() {
         <ul className="nav-menu">
           <li className={activeTab === 'welcome' ? 'active' : ''} onClick={() => handleTabChange('welcome')}>ようこそ</li>
           <li className={activeTab === 'profile' ? 'active' : ''} onClick={() => handleTabChange('profile')}>自己紹介</li>
+          <li className={activeTab === 'schedule' ? 'active' : ''} onClick={() => handleTabChange('schedule')}>スケジュール</li>
           <li className={activeTab === 'lessons' ? 'active' : ''} onClick={() => handleTabChange('lessons')}>レッスン内容及び金額表</li>
           <li className={activeTab === 'canva' ? 'active' : ''} onClick={() => handleTabChange('canva')}>
             <span>依頼詳細</span>
