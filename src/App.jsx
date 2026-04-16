@@ -392,7 +392,7 @@ function App() {
           <span style={{ color: 'var(--accent)' }}>K</span>AMINAGI<br />
           <span style={{ color: 'var(--accent)' }}>O</span>NLINE<br />
           <span style={{ color: 'var(--accent)' }}>L</span>ESSON<br />
-          <span style={{ color: 'var(--accent)', opacity: 0.8, fontSize: '0.8rem' }}>LABORATORY</span>
+          <span style={{ color: 'var(--accent)', opacity: 0.8, fontSize: '0.8rem', cursor: 'pointer' }} onClick={() => window.location.href = '/lesson.html'}>LABORATORY</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', marginTop: '5px' }}>
           <button 
@@ -417,7 +417,7 @@ function App() {
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>K</span>AMINAGI<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>O</span>NLINE<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>L</span>ESSON<br />
-          <span style={{ fontSize: '1.2rem', opacity: 0.6, letterSpacing: '0.1em' }}>LABORATORY</span>
+          <span style={{ fontSize: '1.2rem', opacity: 0.6, letterSpacing: '0.1em', cursor: 'pointer' }} onClick={() => window.location.href = '/lesson.html'}>LABORATORY</span>
         </h1>
         <ul className="nav-menu">
           <li className={activeTab === 'welcome' ? 'active' : ''} onClick={() => handleTabChange('welcome')}>ようこそ</li>

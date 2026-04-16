@@ -38,6 +38,16 @@ const LessonApp = () => {
                   <li><span>180分</span><span>10,000円</span></li>
                 </ul>
               </div>
+
+              <div className="price-card pro">
+                <h3>プロコース</h3>
+                <p className="desc">プロ現場で通用する情報を実践して持ち帰るブーストコースです。</p>
+                <ul>
+                  <li><span>60分</span><span>15,000円</span></li>
+                  <li><span>120分</span><span>24,000円</span></li>
+                  <li><span>180分</span><span>32,000円</span></li>
+                </ul>
+              </div>
             </div>
             <p style={{ marginTop: '1.5rem', textAlign: 'center', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
               ※お支払いは銀行振り込み（後払い）となります。
