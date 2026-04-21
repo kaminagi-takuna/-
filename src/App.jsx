@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import VoiceCheck from './VoiceCheck.jsx'
 import Schedule from './Schedule.jsx'
+import VoiceRPGPreview from './VoiceRPGPreview.jsx'
 
 
 const TweetEmbed = ({ tweetId }) => {
@@ -156,6 +157,7 @@ function App() {
             <h2>レッスン内容及び金額表</h2>
             <div className="info-banner">
               <p style={{ lineHeight: '1.8' }}>
+                オンラインレッスンは<br className="sp-only"/>通話アプリDiscordを使用します<br/>
                 <strong style={{ color: 'var(--accent)' }}>レッスン実施時間</strong>:<br className="sp-only" /> 14:00～18:00 / 22:00～02:00<br/>
                 <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>※在宅介護のため上記の時間とさせていただいております。<br/>
                 ※上記以上の時間や、時間外を希望の場合は応相談となります。<br/>
@@ -370,6 +372,8 @@ function App() {
         return <VoiceCheck />;
       case 'schedule':
         return <Schedule />;
+      case 'rpg-test':
+        return <VoiceRPGPreview />;
       default:
         return <div>選択してください。</div>;
     }
@@ -439,6 +443,7 @@ function App() {
             <a href="https://note.com/voice_tn_nagi" target="_blank" rel="noopener noreferrer" className="external-link" onClick={(e) => e.stopPropagation()} title="別窓で開く">↗</a>
           </li>
           <li className={activeTab === 'contact' ? 'active' : ''} onClick={() => handleTabChange('contact')}>メールフォーム</li>
+          <li className={activeTab === 'rpg-test' ? 'active' : ''} onClick={() => handleTabChange('rpg-test')} style={{ opacity: 0.3, fontSize: '0.7rem', marginTop: '2rem' }}>[開発中] RPGテスト</li>
         </ul>
       </nav>
       <main className="content-area">

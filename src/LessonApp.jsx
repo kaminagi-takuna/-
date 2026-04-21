@@ -13,6 +13,7 @@ const LessonApp = () => {
             <h2 style={{ fontSize: '2rem' }}>レッスン内容・料金表</h2>
             <div className="info-banner" style={{ marginTop: '1rem' }}>
               <p style={{ lineHeight: '1.8' }}>
+                オンラインレッスンは<br className="sp-only"/>通話アプリDiscordを使用します<br/>
                 <strong style={{ color: 'var(--accent)' }}>レッスン実施時間</strong>:<br className="sp-only" /> 14:00～18:00 / 22:00～02:00<br/>
                 <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>※在宅介護のため上記の時間とさせていただいております。</span>
               </p>
@@ -71,7 +72,7 @@ const LessonApp = () => {
             <div className="content-card" style={{ marginBottom: '2rem', padding: '1.5rem', backgroundColor: 'rgba(30, 41, 59, 0.4)' }}>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
                 <strong style={{ color: 'var(--accent)' }}>ご記入のお願い:</strong><br/>
-                フォーム内のフリースペースに<br className="sp-only"/>**「希望日時」**と**「レッスン内容（ボイトレ等）」**、<br className="sp-only"/>そして**「Discordアカウント」**をご記入ください。
+                フォーム内のフリースペースに<br className="sp-only"/>「希望日時」と「レッスン内容（ボイトレ等）」、<br className="sp-only"/>そして「Discordアカウント」をご記入ください。
               </p>
             </div>
 

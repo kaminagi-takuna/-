@@ -1,0 +1,207 @@
+:root {
+  --rpg-gold: #d4af37;
+  --rpg-gold-light: #f9e295;
+  --rpg-black: #0a0a0a;
+  --rpg-dark-gray: #1a1a1a;
+  --rpg-text: #ffffff;
+  --rpg-danger: #ff4d4d;
+  --rpg-mana: #4da6ff;
+  --glass-bg: rgba(0, 0, 0, 0.7);
+  --glass-border: rgba(212, 175, 55, 0.3);
+}
+
+.rpg-test-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  color: var(--rpg-text);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 16:9 アスペクト比のゲーム画面フレーム */
+.rpg-screen-frame {
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  border: 4px solid var(--rpg-gold);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+}
+
+/* ステータスバー（左上） */
+.rpg-status-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 250px;
+  padding: 15px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.status-row {
+  margin-bottom: 15px;
+}
+
+.status-row:last-child {
+  margin-bottom: 0;
+}
+
+.status-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--rpg-gold);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.gauge-bg {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.gauge-fill {
+  height: 100%;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gauge-fill.hp { background: linear-gradient(90deg, #ff4d4d, #ff8080); }
+.gauge-fill.mp { background: linear-gradient(90deg, #4da6ff, #80c1ff); }
+
+/* モンスター配置（中央） */
+.rpg-monster-area {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.monster-sprite {
+  width: 320px;
+  height: auto;
+  filter: drop-shadow(0 0 30px rgba(0,0,0,0.8));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.02); }
+}
+
+/* 攻撃時の振動アニメーション */
+.screen-shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* メッセージウィンドウ（下部） */
+.rpg-message-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.7));
+  border-top: 2px solid var(--rpg-gold);
+  padding: 25px 40px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.message-text {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--rpg-text);
+  margin: 0 0 20px 0;
+  height: 3.2em; /* 2行分確保 */
+  font-weight: 500;
+}
+
+/* 選択肢ボタン */
+.rpg-choices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.rpg-choice-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  padding: 15px 20px;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+  transition: all 0.3s;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.rpg-choice-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--rpg-gold);
+  transform: translateX(5px);
+}
+
+.choice-index {
+  color: var(--rpg-gold);
+  margin-right: 15px;
+  font-weight: bold;
+  font-family: 'serif';
+}
+
+/* VTuber空きスペース（右下） */
+.vtuber-placeholder {
+  position: absolute;
+  bottom: 25%;
+  right: 5%;
+  width: 300px;
+  height: 450px;
+  border: 2px dashed rgba(212, 175, 55, 0.2);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 175, 55, 0.05);
+  color: rgba(212, 175, 55, 0.4);
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .rpg-message-area { padding: 15px; }
+  .message-text { font-size: 16px; }
+  .rpg-choice-btn { padding: 10px; font-size: 14px; }
+  .monster-sprite { width: 200px; }
+  .vtuber-placeholder { display: none; }
+}
