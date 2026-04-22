@@ -89,6 +89,7 @@ const LessonApp = () => {
                 style={{ minWidth: '100%', maxWidth: '100%', height: '800px', border: 'none', overflowY: 'auto' }}
                 scrolling="yes"
               ></iframe>
+            </div>
           </section>
 
           <div style={{ textAlign: 'center', marginTop: '4rem' }}>
