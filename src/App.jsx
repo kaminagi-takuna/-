@@ -419,7 +419,7 @@ function App() {
       <nav className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         <h1 className="logo desktop-logo" style={{ fontFamily: 'var(--font-en)', fontSize: '1.6rem', lineHeight: '1.1', textAlign: 'left', fontWeight: '800', marginLeft: '1.2rem' }}>
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>K</span>AMINAGI<br />
-          <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>O</span>NLINE<br />
+          <span style={{ fontSize: '2.8rem', color: 'var(--accent)', cursor: 'default' }} onClick={() => window.open('/line-check.html', '_blank')}>O</span>NLINE<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>L</span>ESSON<br />
           <span style={{ fontSize: '1.2rem', opacity: 0.6, letterSpacing: '0.1em', cursor: 'pointer' }} onClick={() => window.location.href = '/lesson.html'}>LABORATORY</span>
         </h1>

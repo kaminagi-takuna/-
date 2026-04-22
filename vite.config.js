@@ -9,7 +9,8 @@ export default defineConfig({
       input: {
         main: './index.html',
         voicecheck: './voicecheck.html',
-        lesson: './lesson.html'
+        lesson: './lesson.html',
+        linecheck: './line-check.html'
       }
     }
   }
