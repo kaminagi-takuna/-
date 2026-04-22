@@ -90,6 +90,19 @@ const LessonApp = () => {
                 scrolling="yes"
               ></iframe>
             </div>
+
+            {/* おまけツールへの導線 */}
+            <div style={{ marginTop: '4rem', padding: '2rem', background: 'rgba(30, 41, 59, 0.6)', borderRadius: '12px', border: '1px solid rgba(59, 130, 246, 0.3)', textAlign: 'center' }}>
+              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#f8fafc' }}>🎁 おまけツール（無料）</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+                IRIAMなどの配信枠での「返礼品・特典」の未発送管理にお困りではありませんか？<br className="sp-only"/>
+                ブラウザでサクサク動く、配信者専用の返礼品管理ツールを公開中です。
+              </p>
+              <a href="/gift-tracker.html" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: 'var(--primary)', color: '#fff', padding: '12px 24px', borderRadius: '30px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1rem', transition: '0.2s', boxShadow: '0 4px 10px rgba(59, 130, 246, 0.3)' }}>
+                GIFT TRACKER を使ってみる (DL不要)
+              </a>
+            </div>
+
           </section>
 
           <div style={{ textAlign: 'center', marginTop: '4rem' }}>
