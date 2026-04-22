@@ -443,6 +443,7 @@ function App() {
             <a href="https://note.com/voice_tn_nagi" target="_blank" rel="noopener noreferrer" className="external-link" onClick={(e) => e.stopPropagation()} title="別窓で開く">↗</a>
           </li>
           <li className={activeTab === 'contact' ? 'active' : ''} onClick={() => handleTabChange('contact')}>メールフォーム</li>
+          <li onClick={() => window.open('/gift-tracker.html', '_blank')} style={{ color: 'var(--accent)', fontWeight: 'bold' }}>🎁 返礼品管理</li>
           <li className={activeTab === 'rpg-test' ? 'active' : ''} onClick={() => handleTabChange('rpg-test')} style={{ opacity: 0.3, fontSize: '0.7rem', marginTop: '2rem' }}>[開発中] RPGテスト</li>
         </ul>
       </nav>

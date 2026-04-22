@@ -126,8 +126,8 @@
     <header>
       <div class="logo">GIFT TRACKER</div>
       <div class="user-profile">
-        <div class="user-avatar">名無</div>
-        <span style="font-size:0.9rem; font-weight:bold;">テスト配信者 様</span>
+        <div class="user-avatar" style="background:#1da1f2;">👤</div>
+        <span style="font-size:0.9rem; font-weight:bold;">{{ liverName }} 様</span>
         <button @click="logout" class="logout-btn">ログアウト</button>
       </div>
     </header>
@@ -274,6 +274,7 @@
     data() {
       return {
         isLoggedIn: false, // テスト用の擬似ログイン状態
+        liverName: 'ゲスト配信者',
         filter: 'all', // all, pending, completed
         newName: '',
         newTierStr: '',
@@ -288,6 +289,11 @@
     },
     mounted() {
       // データの読み込みと古いバージョンの互換性対応
+      const savedName = localStorage.getItem('demo_liver_name');
+      if (savedName) this.liverName = savedName;
+      const savedLogin = localStorage.getItem('demo_is_logged_in');
+      if (savedLogin === 'true') this.isLoggedIn = true;
+
       const savedCalcSetting = localStorage.getItem('demo_use_calc');
       if (savedCalcSetting) this.usePtCalc = JSON.parse(savedCalcSetting);
       
@@ -356,10 +362,18 @@
     },
     methods: {
       login() {
-        this.isLoggedIn = true;
+        // X認証を安全にシミュレートするためのローカルプロンプト
+        const name = prompt('※X公式での安全な認証をシミュレートしています\n表示するあなたのアカウント名（活動名）を入力してください：', this.liverName !== 'ゲスト配信者' ? this.liverName : '');
+        if (name && name.trim() !== '') {
+          this.liverName = name.trim();
+          this.isLoggedIn = true;
+          localStorage.setItem('demo_liver_name', this.liverName);
+          localStorage.setItem('demo_is_logged_in', 'true');
+        }
       },
       logout() {
         this.isLoggedIn = false;
+        localStorage.setItem('demo_is_logged_in', 'false');
       },
       isRewardSelected(rm) {
         return this.newRewards.some(r => r.name === rm.name);
