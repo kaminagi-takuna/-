@@ -19,7 +19,37 @@
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
 }
 
-/* 斬撃ビジュアル（モンスターに追従するように調整） */
+/* モンスター襲撃モーション（不正解時） */
+.monster-attack-motion {
+  animation: monster-attack-anim 0.6s ease-in-out;
+}
+@keyframes monster-attack-anim {
+  0% { transform: scale(1) translateY(0); }
+  30% { transform: scale(1.4) translateY(20px); filter: brightness(1.5); }
+  60% { transform: scale(1.4) translateY(20px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* 沈みながら消える演出（撃破・交代時） */
+.monster-sink-fade {
+  animation: monster-sink-anim 1.5s ease-in forwards;
+}
+@keyframes monster-sink-anim {
+  0% { transform: translateY(0) scale(1); opacity: 1; filter: brightness(1); }
+  20% { transform: translateY(-5px) scale(1); opacity: 1; filter: sepia(1) saturate(5); }
+  100% { transform: translateY(150px) scale(0.8); opacity: 0; filter: brightness(0); }
+}
+
+/* ボス出現フェードイン */
+.monster-fade-in {
+  animation: monster-fade-in-anim 2s ease-out forwards;
+}
+@keyframes monster-fade-in-anim {
+  0% { opacity: 0; transform: scale(1.5) translateY(30px); filter: brightness(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1); }
+}
+
+/* 斬撃ビジュアル */
 .slash-effect {
   position: absolute; width: 300%; height: 100%;
   background: linear-gradient(110deg, transparent 45%, #fff 50%, transparent 55%);
@@ -28,36 +58,31 @@
 }
 @keyframes slash-anim {
   0% { transform: translateX(-50%); opacity: 0; }
-  20% { opacity: 1; }
   100% { transform: translateX(50%); opacity: 0; }
 }
 
-/* ヒットスパーク（モンスターに追従するように調整） */
+/* ヒットスパーク */
 .spark {
   width: 6px; height: 6px; background: #fff;
   border-radius: 50%; box-shadow: 0 0 10px var(--rpg-gold-light);
-  pointer-events: none; z-index: 160;
-  animation: spark-anim 0.4s ease-out forwards;
+  z-index: 160; animation: spark-anim 0.4s ease-out forwards;
 }
 @keyframes spark-anim {
   0% { transform: translate(0, 0) scale(1.5); opacity: 1; }
   100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
 }
 
-/* 画面の歪み */
 .screen-distort { animation: distort-anim 0.3s ease-out; }
 @keyframes distort-anim {
-  0% { transform: scale(1); filter: contrast(1) brightness(1); }
-  20% { transform: scale(1.05); filter: contrast(1.5) brightness(1.8) blur(1px); }
-  100% { transform: scale(1); filter: contrast(1) brightness(1) blur(0); }
+  0%, 100% { transform: scale(1); filter: contrast(1); }
+  20% { transform: scale(1.05); filter: contrast(1.5) brightness(1.5); }
 }
 
-/* テキストダメージ */
 .text-damage-shake { animation: text-shake-anim 0.8s ease-in-out; color: var(--rpg-danger) !important; }
 @keyframes text-shake-anim {
   0%, 100% { transform: translate(0, 0); }
-  10%, 30%, 50%, 70%, 90% { transform: translate(-3px, -2px) rotate(-1deg); }
-  20%, 40%, 60%, 80% { transform: translate(3px, 2px) rotate(1deg); }
+  20%, 60% { transform: translate(-3px, -2px); }
+  40%, 80% { transform: translate(3px, 2px); }
 }
 
 .rpg-status-panel {
@@ -72,19 +97,25 @@
 .gauge-fill.hp { background: #ff4d4d; }
 .gauge-fill.mp { background: var(--rpg-gold); }
 
-/* モンスターエリア（中央揃えを確実に） */
 .rpg-monster-area {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
 }
 
 .monster-hit { animation: monster-hit-anim 0.3s ease-out; }
 @keyframes monster-hit-anim {
-  0% { filter: brightness(1) invert(0); transform: scale(1); }
-  30% { filter: brightness(5) invert(0.2); transform: scale(1.2) rotate(5deg); }
-  100% { filter: brightness(1) invert(0); transform: scale(1); }
+  0%, 100% { filter: brightness(1); transform: scale(1); }
+  30% { filter: brightness(5); transform: scale(1.2); }
 }
 
-.monster-sprite { width: 280px; filter: drop-shadow(0 0 20px #000); animation: rpg-float 4s ease-in-out infinite; }
+.monster-sprite { 
+  width: 280px; filter: drop-shadow(0 0 20px #000); 
+  /* 浮遊アニメーションは、他のアニメーションがついていない時だけ適用するようにJSX側で制御 */
+}
+
+/* 浮遊アニメーション用単独クラス */
+.monster-floating {
+  animation: rpg-float 4s ease-in-out infinite;
+}
 @keyframes rpg-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
 .screen-shake { animation: shake-anim 0.4s cubic-bezier(.36,.07,.19,.97) both; }
@@ -108,17 +139,11 @@
 
 @media (max-width: 768px) {
   .rpg-screen-frame { aspect-ratio: auto; min-height: 90vh; display: flex; flex-direction: column; }
-  .rpg-status-panel { position: relative; top: 0; left: 0; width: 100%; border-radius: 0; border: none; border-bottom: 1px solid var(--glass-border); }
-  
-  /* スマホでも確実に中央揃えを維持 */
   .rpg-monster-area {
-    position: relative; height: 180px; inset: auto; 
-    background: rgba(0,0,0,0.3);
+    position: relative; height: 220px; inset: auto; background: rgba(0,0,0,0.3);
     display: flex !important; align-items: center !important; justify-content: center !important;
   }
-  
   .monster-sprite { width: 140px; }
   .rpg-message-area { position: relative; height: auto; flex-grow: 1; border-top: 2px solid var(--rpg-gold); padding: 15px; background: #000; }
   .rpg-choices-grid { grid-template-columns: 1fr; gap: 8px; padding-bottom: 30px; }
-  .rpg-choice-btn { padding: 15px; font-size: 14px; }
 }
