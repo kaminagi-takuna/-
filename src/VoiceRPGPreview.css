@@ -21,7 +21,6 @@
   box-sizing: border-box;
 }
 
-/* PC用基本：16:9 */
 .rpg-screen-frame {
   width: 100%;
   max-width: 1100px;
@@ -35,172 +34,80 @@
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
 }
 
+/* 画面フラッシュ演出（ダメージ時） */
+.flash-red {
+  animation: flash-red-anim 0.3s ease-out forwards;
+}
+@keyframes flash-red-anim {
+  0% { background-color: rgba(255, 0, 0, 0.4); }
+  100% { background-color: transparent; }
+}
+
 .rpg-status-panel {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 220px;
-  padding: 12px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border);
-  border-radius: 6px;
-  z-index: 50;
+  top: 15px; left: 15px; width: 220px; padding: 12px;
+  background: var(--glass-bg); backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border); border-radius: 6px; z-index: 50;
 }
 
 .status-row { margin-bottom: 8px; }
-.status-label {
-  font-size: 11px;
-  font-weight: bold;
-  color: var(--rpg-gold);
-  margin-bottom: 3px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.gauge-bg {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
+.status-label { font-size: 11px; font-weight: bold; color: var(--rpg-gold); margin-bottom: 3px; display: flex; justify-content: space-between; }
+.gauge-bg { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
 .gauge-fill { height: 100%; transition: width 0.6s ease; }
 .gauge-fill.hp { background: #ff4d4d; }
 .gauge-fill.mp { background: var(--rpg-gold); }
 
+/* モンスター */
 .rpg-monster-area {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
+}
+
+/* モンスター被弾エフェクト */
+.monster-hit {
+  animation: monster-hit-anim 0.3s ease-out;
+}
+@keyframes monster-hit-anim {
+  0% { filter: brightness(1) invert(0); transform: scale(1); }
+  50% { filter: brightness(3) invert(0.5) sepia(1) saturate(10) hue-rotate(-50deg); transform: scale(1.1) rotate(5deg); }
+  100% { filter: brightness(1) invert(0); transform: scale(1); }
 }
 
 .monster-sprite {
-  width: 280px;
-  filter: drop-shadow(0 0 20px #000);
-  animation: rpg-float 4s ease-in-out infinite;
+  width: 280px; filter: drop-shadow(0 0 20px #000); animation: rpg-float 4s ease-in-out infinite;
 }
 
-@keyframes rpg-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+@keyframes rpg-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+.screen-shake { animation: shake-anim 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes shake-anim {
+  10%, 90% { transform: translate3d(-4px, 0, 0); }
+  20%, 80% { transform: translate3d(8px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-10px, 0, 0); }
 }
 
-/* メッセージ・操作エリア */
 .rpg-message-area {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 42%;
-  background: rgba(0, 0, 0, 0.95);
-  border-top: 2px solid var(--rpg-gold);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  z-index: 100;
+  position: absolute; bottom: 0; left: 0; right: 0; height: 42%;
+  background: rgba(0, 0, 0, 0.95); border-top: 2px solid var(--rpg-gold);
+  padding: 20px; display: flex; flex-direction: column; box-sizing: border-box; z-index: 100;
 }
 
-.message-text {
-  font-size: 1.1rem;
-  line-height: 1.4;
-  margin: 0 0 15px 0;
-  min-height: 3em;
-}
-
-.rpg-choices-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
+.message-text { font-size: 1.1rem; line-height: 1.4; margin: 0 0 15px 0; min-height: 3em; }
+.rpg-choices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 .rpg-choice-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--glass-border);
-  padding: 12px;
-  color: #fff;
-  cursor: pointer;
-  text-align: left;
-  font-size: 0.95rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border);
+  padding: 12px; color: #fff; cursor: pointer; text-align: left; font-size: 0.95rem; border-radius: 4px; display: flex; align-items: center;
 }
+.rpg-choice-btn:hover { background: rgba(212, 175, 55, 0.3); border-color: var(--rpg-gold); }
 
-.rpg-choice-btn:hover {
-  background: rgba(212, 175, 55, 0.3);
-  border-color: var(--rpg-gold);
-}
-
-/* --- スマホ特化レイアウト --- */
 @media (max-width: 768px) {
-  .rpg-screen-frame {
-    aspect-ratio: auto; /* 比率を解除 */
-    min-height: 90vh;  /* 画面の高さ一杯に使う */
-    display: flex;
-    flex-direction: column;
-  }
-
-  .rpg-status-panel {
-    position: relative; /* 固定を解除 */
-    top: 0; left: 0;
-    width: 100%;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid var(--glass-border);
-    box-sizing: border-box;
-  }
-
-  .rpg-monster-area {
-    position: relative;
-    height: 180px; /* モンスターの居住区を固定 */
-    inset: auto;
-    background: rgba(0,0,0,0.3);
-  }
-
-  .monster-sprite {
-    width: 150px;
-  }
-
-  .rpg-message-area {
-    position: relative; /* 下部固定を解除して流動的に */
-    height: auto;
-    flex-grow: 1;
-    border-top: 2px solid var(--rpg-gold);
-    padding: 15px;
-    background: #000;
-  }
-
-  .message-text {
-    font-size: 14px;
-    height: auto;
-    min-height: auto;
-    margin-bottom: 20px;
-  }
-
-  .rpg-choices-grid {
-    grid-template-columns: 1fr; /* 1列に強制 */
-    gap: 8px;
-    padding-bottom: 30px; /* 下に余白 */
-  }
-
-  .rpg-choice-btn {
-    padding: 15px;
-    font-size: 14px;
-  }
-
-  /* ボスHPゲージ */
-  .boss-hp-container {
-    padding-top: 10px;
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-    transform: none !important;
-    width: 100% !important;
-  }
+  .rpg-screen-frame { aspect-ratio: auto; min-height: 90vh; display: flex; flex-direction: column; }
+  .rpg-status-panel { position: relative; top: 0; left: 0; width: 100%; border-radius: 0; border: none; border-bottom: 1px solid var(--glass-border); }
+  .rpg-monster-area { position: relative; height: 180px; inset: auto; background: rgba(0,0,0,0.3); }
+  .monster-sprite { width: 150px; }
+  .rpg-message-area { position: relative; height: auto; flex-grow: 1; border-top: 2px solid var(--rpg-gold); padding: 15px; background: #000; }
+  .message-text { font-size: 14px; height: auto; min-height: auto; margin-bottom: 20px; }
+  .rpg-choices-grid { grid-template-columns: 1fr; gap: 8px; padding-bottom: 30px; }
+  .rpg-choice-btn { padding: 15px; font-size: 14px; }
+  .boss-hp-container { padding-top: 10px; position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; width: 100% !important; }
 }
