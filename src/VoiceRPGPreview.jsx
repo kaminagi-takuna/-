@@ -8,11 +8,8 @@ const VoiceRPGPreview = () => {
   const [beginnerCorrectCount, setBeginnerCorrectCount] = useState(0);
   const [bossHp, setBossHp] = useState(4);
   const [usedIndices, setUsedIndices] = useState({ beginner: [], boss: [] });
-  
-  // モンスター・演出管理
   const [currentMonsterImg, setCurrentMonsterImg] = useState('/images/rpg/monster_slime_v2.png');
   const [monsterClass, setMonsterClass] = useState('monster-floating');
-  
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [message, setMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -32,11 +29,11 @@ const VoiceRPGPreview = () => {
       oscillator.connect(gainNode); gainNode.connect(audioCtx.destination);
       const now = audioCtx.currentTime;
       if (type === 'click') {
-        oscillator.frequency.setValueAtTime(880, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.1); oscillator.start(); oscillator.stop(now + 0.1);
+        oscillator.frequency.setValueAtTime(880, now); oscillator.start(); oscillator.stop(now + 0.1);
       } else if (type === 'slash') {
-        oscillator.type = 'sawtooth'; oscillator.frequency.setValueAtTime(880, now + 0.2); gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.2); oscillator.start(); oscillator.stop(now + 0.2);
+        oscillator.type = 'sawtooth'; oscillator.frequency.setValueAtTime(880, now + 0.2); oscillator.start(); oscillator.stop(now + 0.2);
       } else if (type === 'impact') {
-        oscillator.type = 'triangle'; oscillator.frequency.setValueAtTime(120, now + 0.5); gainNode.gain.linearRampToValueAtTime(0, now + 0.5); oscillator.start(); oscillator.stop(now + 0.5);
+        oscillator.type = 'triangle'; oscillator.frequency.setValueAtTime(120, now + 0.5); oscillator.start(); oscillator.stop(now + 0.5);
       }
     } catch (e) {}
   };
@@ -61,21 +58,19 @@ const VoiceRPGPreview = () => {
     const count = overrideCount !== undefined ? overrideCount : beginnerCorrectCount;
     const bHp = overrideBossHp !== undefined ? overrideBossHp : bossHp;
     const used = overrideUsed !== undefined ? overrideUsed : usedIndices;
-
     if (count < 8) {
       const pool = questionData.beginner;
       const available = pool.map((_, i) => i).filter(i => !used.beginner.includes(i));
-      const index = available.length > 0 ? available[Math.floor(Math.random() * available.length)] : 0;
+      const index = (available.length > 0) ? available[Math.floor(Math.random() * available.length)] : 0;
       const q = pool[index];
       setCurrentQuestion({ ...q, options: generateOptions(q), index });
       typeMessage(`${isFirst ? "ボイス・トレーニング・クエスト開始！ " : ""}${q.question}`);
     } else if (gameState !== 'bossBattle' && gameState !== 'victory' && gameState !== 'bossTransition') {
-      setGameState('bossTransition');
-      typeMessage("喉の支配者が現れた...！");
+      setGameState('bossTransition'); typeMessage("喉の支配者が現れた...！");
     } else if (bHp > 0) {
       const pool = questionData.boss;
       const available = pool.map((_, i) => i).filter(i => !used.boss.includes(i));
-      const index = available.length > 0 ? available[Math.floor(Math.random() * available.length)] : 0;
+      const index = (available.length > 0) ? available[Math.floor(Math.random() * available.length)] : 0;
       const q = pool[index];
       setCurrentQuestion({ ...q, options: generateOptions(q), index });
       typeMessage(bHp === 1 ? `【!! 弱点露呈 !!】 ${q.question}` : q.question);
@@ -102,7 +97,6 @@ const VoiceRPGPreview = () => {
     if (isTyping || feedback || monsterClass.includes('sink')) return;
     playSound('click');
     const isCorrect = selected === currentQuestion.answer;
-
     if (isCorrect) {
       setIsDistorting(true); setMonsterClass('monster-hit'); setIsSlashing(true); createSparks(); playSound('slash');
       setTimeout(() => {
@@ -123,14 +117,8 @@ const VoiceRPGPreview = () => {
         }
       }, 150);
     } else {
-      // 不正解演出
-      playSound('impact');
-      setMonsterClass('monster-attack-motion'); // 襲撃モーション
-      setIsShaking(true); setIsFlashing(true); setIsTextDamaged(true); setHp(prev => Math.max(0, prev - 25));
-      setTimeout(() => { 
-        setIsShaking(false); setIsFlashing(false); setIsTextDamaged(false); 
-        setMonsterClass('monster-floating');
-      }, 1000);
+      playSound('impact'); setMonsterClass('monster-attack-motion'); setIsShaking(true); setIsFlashing(true); setIsTextDamaged(true); setHp(prev => Math.max(0, prev - 25));
+      setTimeout(() => { setIsShaking(false); setIsFlashing(false); setIsTextDamaged(false); setMonsterClass('monster-floating'); }, 1000);
       setFeedback({ isCorrect, explanation: currentQuestion.explanation });
       if (gameState === 'bossBattle') {
         setBossHp(prev => Math.min(4, prev + 1)); typeMessage("不正解！ボスの弱点が隠れた！");
@@ -139,14 +127,10 @@ const VoiceRPGPreview = () => {
   };
 
   const startBossBattle = () => {
-    playSound('click');
-    setMonsterClass('monster-sink-fade'); // スライム退場
+    playSound('click'); setMonsterClass('monster-sink-fade');
     setTimeout(() => {
-      setCurrentMonsterImg('/images/rpg/monster_boss.png');
-      setMonsterClass('monster-fade-in'); // ボス登場
-      setTimeout(() => {
-        setGameState('bossBattle'); setBossHp(4); nextQuestion(false, 8, 4);
-      }, 2000);
+      setCurrentMonsterImg('/images/rpg/monster_boss.png'); setMonsterClass('monster-fade-in');
+      setTimeout(() => { setGameState('bossBattle'); setBossHp(4); nextQuestion(false, 8, 4); }, 2000);
     }, 1500);
   };
 
@@ -155,6 +139,7 @@ const VoiceRPGPreview = () => {
       <div className={`rpg-screen-frame ${isShaking ? 'screen-shake' : ''} ${isFlashing ? 'flash-red' : ''} ${isDistorting ? 'screen-distort' : ''}`} 
            style={{ backgroundImage: `url('/images/rpg/bg_training.png')`, filter: gameState.includes('boss') ? 'hue-rotate(180deg) brightness(0.6)' : 'none' }}>
         
+        {/* ステータスパネル */}
         <div className="rpg-status-panel">
           <div className="status-row">
             <div className="status-label"><span>Vocal HP</span><span>{hp}%</span></div>
@@ -168,19 +153,24 @@ const VoiceRPGPreview = () => {
           )}
         </div>
 
-        {gameState === 'bossBattle' && (
-          <div className="boss-hp-container" style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', width: '60%', textAlign: 'center', zIndex: 100 }}>
-            <div style={{ color: '#ff4d4d', fontWeight: 'bold', fontSize: '1rem', textShadow: '0 0 10px #000', marginBottom: '5px' }}>BOSS HP</div>
-            <div className="gauge-bg" style={{ height: '15px', border: '1px solid #ff4d4d' }}><div className="gauge-fill" style={{ width: `${(bossHp / 4) * 100}%`, backgroundColor: '#ff4d4d' }}></div></div>
-          </div>
-        )}
-
+        {/* モンスターエリア（内部にボスHPバーを統合） */}
         <div className="rpg-monster-area">
-          <div className="monster-wrapper" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src={currentMonsterImg} alt="Monster" className={`monster-sprite ${monsterClass}`} 
-                 style={{ mixBlendMode: 'lighten', transform: (gameState === 'bossBattle' && !monsterClass.includes('fade-in')) ? 'scale(1.2)' : 'none' }} />
-            {isSlashing && <div className="slash-effect" style={{ position: 'absolute', width: '100vw', height: '100vh', left: '-50vw', top: '-50vh' }}></div>}
-            {sparks.map(s => ( <div key={s.id} className="spark" style={{ '--tx': s.tx, '--ty': s.ty, position: 'absolute', top: '50%', left: '50%' }}></div> ))}
+          <div className="monster-wrapper" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            
+            {/* ボスHPバー（モンスターの上部に配置） */}
+            {gameState === 'bossBattle' && (
+              <div className="boss-hp-container" style={{ width: '280px', textAlign: 'center', marginBottom: '20px' }}>
+                <div style={{ color: '#ff4d4d', fontWeight: 'bold', fontSize: '0.9rem', textShadow: '0 0 10px #000', marginBottom: '4px' }}>BOSS HP</div>
+                <div className="gauge-bg" style={{ height: '10px', border: '1px solid #ff4d4d' }}><div className="gauge-fill" style={{ width: `${(bossHp / 4) * 100}%`, backgroundColor: '#ff4d4d' }}></div></div>
+              </div>
+            )}
+
+            <div style={{ position: 'relative' }}>
+              <img src={currentMonsterImg} alt="Monster" className={`monster-sprite ${monsterClass}`} 
+                   style={{ mixBlendMode: 'lighten', transform: (gameState === 'bossBattle' && !monsterClass.includes('fade-in')) ? 'scale(1.2)' : 'none' }} />
+              {isSlashing && <div className="slash-effect" style={{ position: 'absolute', width: '100vw', height: '100vh', left: '-50vw', top: '-50vh' }}></div>}
+              {sparks.map(s => ( <div key={s.id} className="spark" style={{ '--tx': s.tx, '--ty': s.ty, position: 'absolute', top: '50%', left: '50%' }}></div> ))}
+            </div>
           </div>
         </div>
 
@@ -195,7 +185,7 @@ const VoiceRPGPreview = () => {
             )}
             {feedback && !monsterClass.includes('sink') && (
               <div style={{ width: '100%', animation: 'fadeIn 0.3s ease-out' }}>
-                <p style={{ color: feedback.isCorrect ? '#4dff88' : '#ff4d4d', fontWeight: 'bold', fontSize: '1.1rem', margin: '0 0 5px 0' }}>{feedback.isCorrect ? '【SUCCESS】' : '【FAILURE】'} {currentQuestion.answer}</p>
+                <p style={{ color: feedback.isCorrect ? '#4dff88' : '#ff4d4d', fontWeight: 'bold', fontSize: '1.2rem', margin: '0 0 5px 0' }}>{feedback.isCorrect ? '【SUCCESS】' : '【FAILURE】'} {currentQuestion.answer}</p>
                 <p style={{ fontSize: '0.85rem', color: '#ccc', lineHeight: '1.4' }}>{feedback.explanation}</p>
                 <button className="rpg-choice-btn" style={{ marginTop: '10px' }} onClick={() => nextQuestion()}>次の戦いへ ➔</button>
               </div>

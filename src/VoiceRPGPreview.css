@@ -19,117 +19,70 @@
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
 }
 
-/* モンスター襲撃モーション（不正解時） */
-.monster-attack-motion {
-  animation: monster-attack-anim 0.6s ease-in-out;
-}
-@keyframes monster-attack-anim {
-  0% { transform: scale(1) translateY(0); }
-  30% { transform: scale(1.4) translateY(20px); filter: brightness(1.5); }
-  60% { transform: scale(1.4) translateY(20px); }
-  100% { transform: scale(1) translateY(0); }
-}
-
-/* 沈みながら消える演出（撃破・交代時） */
-.monster-sink-fade {
-  animation: monster-sink-anim 1.5s ease-in forwards;
-}
-@keyframes monster-sink-anim {
-  0% { transform: translateY(0) scale(1); opacity: 1; filter: brightness(1); }
-  20% { transform: translateY(-5px) scale(1); opacity: 1; filter: sepia(1) saturate(5); }
-  100% { transform: translateY(150px) scale(0.8); opacity: 0; filter: brightness(0); }
-}
-
-/* ボス出現フェードイン */
-.monster-fade-in {
-  animation: monster-fade-in-anim 2s ease-out forwards;
-}
-@keyframes monster-fade-in-anim {
-  0% { opacity: 0; transform: scale(1.5) translateY(30px); filter: brightness(0); }
-  100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1); }
-}
-
-/* 斬撃ビジュアル */
-.slash-effect {
-  position: absolute; width: 300%; height: 100%;
-  background: linear-gradient(110deg, transparent 45%, #fff 50%, transparent 55%);
-  z-index: 150; pointer-events: none;
-  animation: slash-anim 0.2s ease-out forwards;
-}
-@keyframes slash-anim {
-  0% { transform: translateX(-50%); opacity: 0; }
-  100% { transform: translateX(50%); opacity: 0; }
-}
-
-/* ヒットスパーク */
-.spark {
-  width: 6px; height: 6px; background: #fff;
-  border-radius: 50%; box-shadow: 0 0 10px var(--rpg-gold-light);
-  z-index: 160; animation: spark-anim 0.4s ease-out forwards;
-}
-@keyframes spark-anim {
-  0% { transform: translate(0, 0) scale(1.5); opacity: 1; }
-  100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
-}
-
-.screen-distort { animation: distort-anim 0.3s ease-out; }
-@keyframes distort-anim {
-  0%, 100% { transform: scale(1); filter: contrast(1); }
-  20% { transform: scale(1.05); filter: contrast(1.5) brightness(1.5); }
-}
-
-.text-damage-shake { animation: text-shake-anim 0.8s ease-in-out; color: var(--rpg-danger) !important; }
-@keyframes text-shake-anim {
-  0%, 100% { transform: translate(0, 0); }
-  20%, 60% { transform: translate(-3px, -2px); }
-  40%, 80% { transform: translate(3px, 2px); }
-}
-
-.rpg-status-panel {
-  position: absolute; top: 15px; left: 15px; width: 220px; padding: 12px;
-  background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border); border-radius: 6px; z-index: 50;
-}
-.status-row { margin-bottom: 8px; }
-.status-label { font-size: 11px; font-weight: bold; color: var(--rpg-gold); margin-bottom: 3px; display: flex; justify-content: space-between; }
-.gauge-bg { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
-.gauge-fill { height: 100%; transition: width 0.6s ease; }
-.gauge-fill.hp { background: #ff4d4d; }
-.gauge-fill.mp { background: var(--rpg-gold); }
-
+/* モンスターエリア（PC版：メッセージウィンドウを避けるように上に詰める） */
 .rpg-monster-area {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  bottom: 42%; /* メッセージエリア(42%)の高さを考慮して下を空ける */
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  z-index: 10;
 }
 
-.monster-hit { animation: monster-hit-anim 0.3s ease-out; }
-@keyframes monster-hit-anim {
-  0%, 100% { filter: brightness(1); transform: scale(1); }
-  30% { filter: brightness(5); transform: scale(1.2); }
+.monster-wrapper {
+  position: relative; display: flex; align-items: center; justify-content: center;
 }
 
 .monster-sprite { 
   width: 280px; filter: drop-shadow(0 0 20px #000); 
-  /* 浮遊アニメーションは、他のアニメーションがついていない時だけ適用するようにJSX側で制御 */
 }
 
-/* 浮遊アニメーション用単独クラス */
-.monster-floating {
-  animation: rpg-float 4s ease-in-out infinite;
-}
+/* アニメーション類 */
+.monster-floating { animation: rpg-float 4s ease-in-out infinite; }
 @keyframes rpg-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-.screen-shake { animation: shake-anim 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+.monster-attack-motion { animation: monster-attack-anim 0.6s ease-in-out; }
+@keyframes monster-attack-anim {
+  0% { transform: scale(1) translateY(0); }
+  30% { transform: scale(1.4) translateY(40px); filter: brightness(1.5); }
+  60% { transform: scale(1.4) translateY(40px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+.monster-sink-fade { animation: monster-sink-anim 1.5s ease-in forwards; }
+@keyframes monster-sink-anim {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(150px) scale(0.8); opacity: 0; }
+}
+
+.monster-fade-in { animation: monster-fade-in-anim 2s ease-out forwards; }
+@keyframes monster-fade-in-anim {
+  0% { opacity: 0; transform: scale(1.5) translateY(30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.flash-red { animation: flash-red-anim 0.3s ease-out forwards; }
+@keyframes flash-red-anim { 0% { background-color: rgba(255, 0, 0, 0.4); } 100% { background-color: transparent; } }
+
+.monster-hit { animation: monster-hit-anim 0.3s ease-out; }
+@keyframes monster-hit-anim {
+  0%, 100% { filter: brightness(1); transform: scale(1); }
+  30% { filter: brightness(5); transform: scale(1.2) rotate(5deg); }
+}
+
+.screen-shake { animation: shake-anim 0.4s both; }
 @keyframes shake-anim {
   10%, 90% { transform: translate3d(-6px, 0, 0); }
   20%, 80% { transform: translate3d(12px, 0, 0); }
-  30%, 50%, 70% { transform: translate3d(-14px, 0, 0); }
 }
 
+/* メッセージウィンドウ */
 .rpg-message-area {
   position: absolute; bottom: 0; left: 0; right: 0; height: 42%;
   background: rgba(0, 0, 0, 0.95); border-top: 2px solid var(--rpg-gold);
   padding: 20px; display: flex; flex-direction: column; box-sizing: border-box; z-index: 100;
 }
+
 .message-text { font-size: 1.1rem; line-height: 1.4; margin: 0 0 15px 0; min-height: 3em; }
 .rpg-choices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .rpg-choice-btn {
@@ -137,13 +90,31 @@
   padding: 12px; color: #fff; cursor: pointer; text-align: left; font-size: 0.95rem; border-radius: 4px; display: flex; align-items: center;
 }
 
+/* --- スマホ特化レイアウト調整 --- */
 @media (max-width: 768px) {
-  .rpg-screen-frame { aspect-ratio: auto; min-height: 90vh; display: flex; flex-direction: column; }
-  .rpg-monster-area {
-    position: relative; height: 220px; inset: auto; background: rgba(0,0,0,0.3);
-    display: flex !important; align-items: center !important; justify-content: center !important;
+  .rpg-screen-frame { aspect-ratio: auto; min-height: 95vh; display: flex; flex-direction: column; overflow-y: auto; }
+  
+  .rpg-status-panel { 
+    position: relative; top: 0; left: 0; width: 100%; border: none; border-bottom: 1px solid var(--glass-border); 
+    padding: 15px; background: rgba(10,10,10,1);
   }
-  .monster-sprite { width: 140px; }
+  
+  .rpg-monster-area {
+    position: relative;
+    inset: auto;
+    height: auto;
+    min-height: 320px; /* モンスターエリアを高くして、上下のパーツと距離を置く */
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    padding: 30px 0;
+  }
+  
+  .monster-sprite { width: 160px; }
+  
   .rpg-message-area { position: relative; height: auto; flex-grow: 1; border-top: 2px solid var(--rpg-gold); padding: 15px; background: #000; }
-  .rpg-choices-grid { grid-template-columns: 1fr; gap: 8px; padding-bottom: 30px; }
+  
+  /* ボスHPゲージ（スマホ時は相対位置でモンスターの上に配置） */
+  .boss-hp-container {
+    position: absolute !important; top: 10px !important; transform: none !important; left: 0 !important; width: 100% !important; padding: 0 20px !important; box-sizing: border-box;
+  }
 }
