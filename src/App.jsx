@@ -393,7 +393,18 @@ function App() {
       {/* Mobile Top Header (Visible only on mobile via CSS) */}
       <div className="mobile-header sp-only-flex">
         <div className="mobile-logo" style={{ textAlign: 'left', lineHeight: '1.2' }}>
-          <span style={{ color: 'var(--accent)' }}>K</span>AMINAGI<br />
+          <span style={{ color: 'var(--accent)' }}>K</span>AMINA
+          <span 
+            onClick={() => {
+              const pw = prompt('合言葉を入力してください');
+              if(pw === '欄干橋') {
+                window.open('/RankanScheduleMaker/index.html', '_blank');
+              } else if (pw) {
+                alert('合言葉が違います。');
+              }
+            }} 
+            style={{ cursor: 'pointer' }}
+          >G</span>I<br />
           <span style={{ color: 'var(--accent)' }}>O</span>NLINE<br />
           <span style={{ color: 'var(--accent)' }}>L</span>ESSON<br />
           <span style={{ color: 'var(--accent)', opacity: 0.8, fontSize: '0.8rem', cursor: 'pointer' }} onClick={() => window.location.href = '/lesson.html'}>LABORATORY</span>
@@ -418,7 +429,18 @@ function App() {
 
       <nav className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         <h1 className="logo desktop-logo" style={{ fontFamily: 'var(--font-en)', fontSize: '1.6rem', lineHeight: '1.1', textAlign: 'left', fontWeight: '800', marginLeft: '1.2rem' }}>
-          <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>K</span>AMINAGI<br />
+          <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>K</span>AMINA
+          <span 
+            onClick={() => {
+              const pw = prompt('合言葉を入力してください');
+              if(pw === '欄干橋') {
+                window.open('/RankanScheduleMaker/index.html', '_blank');
+              } else if (pw) {
+                alert('合言葉が違います。');
+              }
+            }} 
+            style={{ cursor: 'pointer' }}
+          >G</span>I<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)', cursor: 'default' }} onClick={() => window.open('/line-check.html', '_blank')}>O</span>NLINE<br />
           <span style={{ fontSize: '2.8rem', color: 'var(--accent)' }}>L</span>ESSON<br />
           <span style={{ fontSize: '1.2rem', opacity: 0.6, letterSpacing: '0.1em', cursor: 'pointer' }} onClick={() => window.location.href = '/lesson.html'}>LABORATORY</span>

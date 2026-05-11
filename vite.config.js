@@ -10,7 +10,8 @@ export default defineConfig({
         main: './index.html',
         voicecheck: './voicecheck.html',
         lesson: './lesson.html',
-        linecheck: './line-check.html'
+        linecheck: './line-check.html',
+        lp: './lp.html'
       }
     }
   }
