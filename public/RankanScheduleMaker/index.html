@@ -24,7 +24,7 @@
       --step-y: 129px;
 
       /* 「月」の数字の右端位置（X座標） */
-      --month-x: 170px;
+      --month-x: 165px;
       /* 「日」の数字の右端位置（X座標） */
       --day-x: 265px;
       /* 「曜日」の中央位置（X座標） */
@@ -92,7 +92,7 @@
       background-image: url('./backglf.png');
       background-size: 1920px 1080px; /* 固定サイズで描画 */
       background-repeat: no-repeat;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      /* box-shadow: 0 10px 30px rgba(0,0,0,0.5); 画像化時の黒い影・帯の原因になるため無効化 */
       
       /* プレビュー時に画面に収まるように縮小（出力時は実寸になります） */
       transform-origin: top left;
@@ -246,10 +246,17 @@
         
         // VueのDOM更新を待つ
         this.$nextTick(() => {
+          // 画像化の瞬間にスクロールがずれて黒い帯が入るのを防ぐ設定
+          window.scrollTo(0, 0);
+
           html2canvas(element, { 
             scale: 1, 
             useCORS: true,
-            backgroundColor: null // 背景透過
+            backgroundColor: null, // 背景透過
+            width: 1920,
+            height: 1080,
+            scrollY: 0,
+            scrollX: 0
           }).then(canvas => {
             let link = document.createElement('a');
             link.download = `配信予定表.png`;
