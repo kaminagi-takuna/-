@@ -169,7 +169,7 @@ function App() {
             <div className="pricing-cards">
               <div className="price-card">
                 <h3>昼間</h3>
-                <p className="desc">14:00〜18:00。<br className="sp-only" />昼間は介護の他、<br className="sp-only" />症状が出やすい時間帯なので<br className="sp-only" />金額を上げています。<br className="sp-only" />ご了承ください。</p>
+                <p className="desc">14:00〜18:00。<br/>昼間は介護の他、<br className="sp-only" />症状が出やすい時間帯なので<br className="sp-only" />金額を上げています。<br className="sp-only" />ご了承ください。</p>
                 <ul>
                   <li><span>60分</span><span>10,000円</span></li>
                   <li><span>120分</span><span>15,000円</span></li>
@@ -179,7 +179,7 @@ function App() {
 
               <div className="price-card popular">
                 <h3>夜間</h3>
-                <p className="desc">22:00〜02:00。<br className="sp-only" />介護が落ち着いているのと、<br className="sp-only" />症状が一番安定しやすい時間なので<br className="sp-only" />ベーシックプランとさせていただきます。</p>
+                <p className="desc">22:00〜02:00。<br/>介護が落ち着いているのと、<br className="sp-only" />症状が一番安定しやすい時間なので<br className="sp-only" />ベーシックプランとさせていただきます。</p>
                 <ul>
                   <li><span>60分</span><span>5,000円</span></li>
                   <li><span>120分</span><span>8,000円</span></li>
@@ -189,7 +189,7 @@ function App() {
 
               <div className="price-card pro">
                 <h3>プロコース</h3>
-                <p className="desc">14:00〜18:00 / 22:00〜02:00。<br className="sp-only" />プロとして、現場で通用するスキルを<br className="sp-only" />実践して身につけるブーストコースです。<br className="sp-only" />より難易度の高い内容となりますが、<br className="sp-only" />声優やナレーターにご好評いただいています。</p>
+                <p className="desc">14:00〜18:00 / 22:00〜02:00。<br/>プロとして、現場で通用するスキルを<br className="sp-only" />実践して身につけるブーストコースです。<br className="sp-only" />より難易度の高い内容となりますが、<br className="sp-only" />声優やナレーターにご好評いただいています。</p>
                 <ul>
                   <li><span>60分</span><span>15,000円</span></li>
                   <li><span>120分</span><span>24,000円</span></li>
