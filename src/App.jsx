@@ -158,9 +158,10 @@ function App() {
             <div className="info-banner">
               <p style={{ lineHeight: '1.8' }}>
                 オンラインレッスンは<br className="sp-only"/>通話アプリDiscordを使用します<br/>
+                お手数ですが事前にインストール、<br className="sp-only"/>操作の確認をお願いします<br/>
                 <strong style={{ color: 'var(--accent)' }}>レッスン実施時間</strong>:<br className="sp-only" /> 14:00～18:00 / 22:00～02:00<br/>
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>※在宅介護のため上記の時間とさせていただいております。<br/>
-                ※上記以上の時間や、時間外を希望の場合は応相談となります。<br/>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>※難病（潰瘍性大腸炎）のため<br className="sp-only"/>不調の場合トイレ離籍があります。<br/>
+                ※在宅介護のため上記の時間とさせていただいております。<br/>
                 ※お支払いは銀行振り込み（後払い）のみの対応となります。</span>
               </p>
             </div>
@@ -168,7 +169,7 @@ function App() {
             <div className="pricing-cards">
               <div className="price-card">
                 <h3>昼間</h3>
-                <p className="desc">夜コースと同じ内容ですが、<br className="sp-only" />介護の関係で昼間の時間を<br className="sp-only" />レッスンに割くため<br className="sp-only" />値上がりしています。</p>
+                <p className="desc">14:00〜18:00。<br className="sp-only" />昼間は介護の他、<br className="sp-only" />症状が出やすい時間帯なので<br className="sp-only" />金額を上げています。<br className="sp-only" />ご了承ください。</p>
                 <ul>
                   <li><span>60分</span><span>10,000円</span></li>
                   <li><span>120分</span><span>15,000円</span></li>
@@ -178,7 +179,7 @@ function App() {
 
               <div className="price-card popular">
                 <h3>夜間</h3>
-                <p className="desc">時間を確保しやすい夜間のため、<br className="sp-only" />お安めの基本料金でお受けできます。<br className="sp-only" />ディレクション等も幅広く対応。</p>
+                <p className="desc">22:00〜02:00。<br className="sp-only" />介護が落ち着いているのと、<br className="sp-only" />症状が一番安定しやすい時間なので<br className="sp-only" />ベーシックプランとさせていただきます。</p>
                 <ul>
                   <li><span>60分</span><span>5,000円</span></li>
                   <li><span>120分</span><span>8,000円</span></li>
@@ -188,7 +189,7 @@ function App() {
 
               <div className="price-card pro">
                 <h3>プロコース</h3>
-                <p className="desc">踏み込んだ深い内容向け。<br className="sp-only" />プロの現場で通用する情報を実践して<br className="sp-only" />持ち帰るブーストコースです。</p>
+                <p className="desc">14:00〜18:00 / 22:00〜02:00。<br className="sp-only" />プロとして、現場で通用するスキルを<br className="sp-only" />実践して身につけるブーストコースです。<br className="sp-only" />より難易度の高い内容となりますが、<br className="sp-only" />声優やナレーターにご好評いただいています。</p>
                 <ul>
                   <li><span>60分</span><span>15,000円</span></li>
                   <li><span>120分</span><span>24,000円</span></li>
