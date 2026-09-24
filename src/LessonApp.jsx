@@ -14,15 +14,17 @@ const LessonApp = () => {
             <div className="info-banner" style={{ marginTop: '1rem' }}>
               <p style={{ lineHeight: '1.8' }}>
                 オンラインレッスンは<br className="sp-only"/>通話アプリDiscordを使用します<br/>
+                お手数ですが事前にインストール、<br className="sp-only"/>操作の確認をお願いします<br/>
                 <strong style={{ color: 'var(--accent)' }}>レッスン実施時間</strong>:<br className="sp-only" /> 14:00～18:00 / 22:00～02:00<br/>
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>※在宅介護のため上記の時間とさせていただいております。</span>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>※難病（潰瘍性大腸炎）のため<br className="sp-only"/>不調の場合トイレ離籍があります。<br/>
+                ※在宅介護のため上記の時間とさせていただいております。</span>
               </p>
             </div>
 
             <div className="pricing-cards">
               <div className="price-card">
                 <h3>昼間</h3>
-                <p className="desc">14:00〜18:00。介護の合間を縫って集中指導いたします。</p>
+                <p className="desc">14:00〜18:00。<br/>昼間は介護の他、<br className="sp-only"/>症状が出やすい時間帯なので<br className="sp-only"/>金額を上げています。<br className="sp-only"/>ご了承ください。</p>
                 <ul>
                   <li><span>60分</span><span>10,000円</span></li>
                   <li><span>120分</span><span>15,000円</span></li>
@@ -32,7 +34,7 @@ const LessonApp = () => {
 
               <div className="price-card popular">
                 <h3>夜間</h3>
-                <p className="desc">22:00〜02:00。一番人気の基本コース。じっくり向き合います。</p>
+                <p className="desc">22:00〜02:00。<br/>介護が落ち着いているのと、<br className="sp-only"/>症状が一番安定しやすい時間なので<br className="sp-only"/>ベーシックプランとさせていただきます。</p>
                 <ul>
                   <li><span>60分</span><span>5,000円</span></li>
                   <li><span>120分</span><span>8,000円</span></li>
@@ -42,7 +44,7 @@ const LessonApp = () => {
 
               <div className="price-card pro">
                 <h3>プロコース</h3>
-                <p className="desc">プロ現場で通用する情報を実践して持ち帰るブーストコースです。</p>
+                <p className="desc">14:00〜18:00 / 22:00〜02:00。<br/>プロとして、現場で通用するスキルを<br className="sp-only"/>実践して身につけるブーストコースです。<br className="sp-only"/>より難易度の高い内容となりますが、<br className="sp-only"/>声優やナレーターにご好評いただいています。</p>
                 <ul>
                   <li><span>60分</span><span>15,000円</span></li>
                   <li><span>120分</span><span>24,000円</span></li>
