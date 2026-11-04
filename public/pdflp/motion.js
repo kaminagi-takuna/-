@@ -64,7 +64,7 @@
     const heading = el.closest('.free-heading');
     const eyebrow = heading ? heading.querySelector('.eyebrow') : null;
     return eyebrow ? [eyebrow, el] : [el];
-  }, {motionType: 'slide-left', interval: 140});
+  }, {motionType: 'slide-left', interval: 260});
 
   // 2. 「滑舌が悪い」を、ひとまとめにしない... を下からポップアップ
   one('.free-heading > p:last-child', el => [el], {motionType: 'popup'});
@@ -78,7 +78,7 @@
     const title = el.querySelector('h3');
     const desc = el.querySelector('h3 + p');
     return [tag, title, desc].filter(Boolean);
-  }, {motionType: 'slide-left', interval: 150});
+  }, {motionType: 'slide-left', interval: 240});
 
   // 4. ①②③の各行で、「番号」➔「位置を知る」➔「説明文」を順番に時間差で左からフェードイン
   const freeSteps = document.querySelector('.free-workbook-steps');
@@ -86,7 +86,7 @@
     el.querySelector('.step-num'),
     el.querySelector('strong'),
     el.querySelector('.step-desc')
-  ].filter(Boolean), {motionType: 'slide-left', interval: 170, ordered: true});
+  ].filter(Boolean), {motionType: 'slide-left', interval: 240, ordered: true});
 
   // 5. 「全部を順に練習する必要はありません...」を下からフェードイン
   one('.free-workbook-note', el => [el], {motionType: 'up-fade'});
@@ -95,7 +95,7 @@
   one('.free-pdf-download', el => {
     const meta = el.nextElementSibling && el.nextElementSibling.classList.contains('free-download-meta') ? el.nextElementSibling : null;
     return meta ? [el, meta] : [el];
-  }, {motionType: 'popup', interval: 100});
+  }, {motionType: 'popup', interval: 200});
 
   // ブリッジ部分（自分の課題が見えたら、その先へ。）
   one('.free-workbook-bridge', el => [el], {motionType: 'up-fade'});
@@ -132,31 +132,31 @@
       const mType = unit.group.motionType;
       if (mType === 'slide-left') {
         keyframes = [
-          {opacity: 0, transform: 'translateX(-45px)'},
+          {opacity: 0, transform: 'translateX(-42px)'},
           {opacity: 1, transform: 'translateX(0)'}
         ];
         duration = 650;
         easing = 'cubic-bezier(.22, 1, .36, 1)';
       } else if (mType === 'popup') {
         keyframes = [
-          {opacity: 0, transform: 'translateY(28px) scale(0.85)'},
+          {opacity: 0, transform: 'translateY(24px) scale(0.92)'},
           {opacity: 1, transform: 'translate(0, 0) scale(1)'}
         ];
-        duration = 580;
-        easing = 'cubic-bezier(.34, 1.45, .64, 1)';
+        duration = 650;
+        easing = 'cubic-bezier(.22, 1, .36, 1)';
       } else if (mType === 'slow-popup') {
         keyframes = [
-          {opacity: 0, transform: 'translateY(32px) scale(0.88)'},
+          {opacity: 0, transform: 'translateY(28px) scale(0.92)'},
           {opacity: 1, transform: 'translate(0, 0) scale(1)'}
         ];
-        duration = 900;
-        easing = 'cubic-bezier(.16, 1, .3, 1)';
+        duration = 950;
+        easing = 'cubic-bezier(.22, 1, .36, 1)';
       } else if (mType === 'up-fade') {
         keyframes = [
           {opacity: 0, transform: 'translateY(24px)'},
           {opacity: 1, transform: 'translateY(0)'}
         ];
-        duration = 550;
+        duration = 500;
         easing = 'cubic-bezier(.22, 1, .36, 1)';
       }
 
