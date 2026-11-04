@@ -80,10 +80,13 @@
     return [tag, title, desc].filter(Boolean);
   }, {motionType: 'slide-left', interval: 150});
 
-  // 4. 「位置を知る」「言葉で試す」「課題を見つける」を左からフェードイン
+  // 4. ①②③の各行で、「番号」➔「位置を知る」➔「説明文」を順番に時間差で左からフェードイン
   const freeSteps = document.querySelector('.free-workbook-steps');
-  register(freeSteps, freeSteps ? [...freeSteps.children] : [], el => [el],
-    {motionType: 'slide-left', interval: 160, ordered: true});
+  register(freeSteps, freeSteps ? [...freeSteps.children] : [], el => [
+    el.querySelector('.step-num'),
+    el.querySelector('strong'),
+    el.querySelector('.step-desc')
+  ].filter(Boolean), {motionType: 'slide-left', interval: 170, ordered: true});
 
   // 5. 「全部を順に練習する必要はありません...」を下からフェードイン
   one('.free-workbook-note', el => [el], {motionType: 'up-fade'});
