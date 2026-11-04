@@ -58,6 +58,45 @@
   one('.purchase-section h2', el => [...el.querySelectorAll('.motion-copy')], {direction: 'right', interval: 320});
   one('.closing h2', el => [...el.querySelectorAll('.motion-copy')], {direction: 'right', interval: 320});
 
+  // 無料教材 (free-workbook) セクション
+  // 1. 「まずは自分の滑舌を知ろう」を左からフェードイン
+  one('#free-workbook-title', el => {
+    const heading = el.closest('.free-heading');
+    const eyebrow = heading ? heading.querySelector('.eyebrow') : null;
+    return eyebrow ? [eyebrow, el] : [el];
+  }, {motionType: 'slide-left', interval: 140});
+
+  // 2. 「滑舌が悪い」を、ひとまとめにしない... を下からポップアップ
+  one('.free-heading > p:last-child', el => [el], {motionType: 'popup'});
+
+  // 6. 左側の画像をゆっくりポップアップ
+  one('.free-workbook-cover', el => [el], {motionType: 'slow-popup'});
+
+  // 3. 「日本語の発音を、舌と唇の位置から。」「発音の現在地 一音ずつの舌と唇」を左からフェードイン
+  one('.free-workbook-copy', el => {
+    const tag = el.querySelector('.free-book-tag');
+    const title = el.querySelector('h3');
+    const desc = el.querySelector('h3 + p');
+    return [tag, title, desc].filter(Boolean);
+  }, {motionType: 'slide-left', interval: 150});
+
+  // 4. 「位置を知る」「言葉で試す」「課題を見つける」を左からフェードイン
+  const freeSteps = document.querySelector('.free-workbook-steps');
+  register(freeSteps, freeSteps ? [...freeSteps.children] : [], el => [el],
+    {motionType: 'slide-left', interval: 160, ordered: true});
+
+  // 5. 「全部を順に練習する必要はありません...」を下からフェードイン
+  one('.free-workbook-note', el => [el], {motionType: 'up-fade'});
+
+  // 7. PDFダウンロードボタンをポップアップ
+  one('.free-pdf-download', el => {
+    const meta = el.nextElementSibling && el.nextElementSibling.classList.contains('free-download-meta') ? el.nextElementSibling : null;
+    return meta ? [el, meta] : [el];
+  }, {motionType: 'popup', interval: 100});
+
+  // ブリッジ部分（自分の課題が見えたら、その先へ。）
+  one('.free-workbook-bridge', el => [el], {motionType: 'up-fade'});
+
   // Move existing block effects to the same midpoint; avoid nested effects.
   each('.section-heading, .vision-body, .purchase-grid, .faq-list').forEach(el => {
     if (!el.hasAttribute('data-motion-group')) register(el, [el], item => [item]);
@@ -80,13 +119,49 @@
     const start = Math.max(now, unit.group.nextStart);
     const offset = unit.group.direction === 'right' ? 'translateX(-42px)' : 'translateY(24px)';
     unit.parts.forEach((part, index) => {
-      const animation = part.animate([
+      let keyframes = [
         {opacity: 0, transform: offset},
         {opacity: 1, transform: 'translate(0, 0)'}
-      ], {
-        duration: unit.group.direction === 'right' ? 650 : 500,
+      ];
+      let duration = unit.group.direction === 'right' ? 650 : 500;
+      let easing = 'cubic-bezier(.22, 1, .36, 1)';
+
+      const mType = unit.group.motionType;
+      if (mType === 'slide-left') {
+        keyframes = [
+          {opacity: 0, transform: 'translateX(-45px)'},
+          {opacity: 1, transform: 'translateX(0)'}
+        ];
+        duration = 650;
+        easing = 'cubic-bezier(.22, 1, .36, 1)';
+      } else if (mType === 'popup') {
+        keyframes = [
+          {opacity: 0, transform: 'translateY(28px) scale(0.85)'},
+          {opacity: 1, transform: 'translate(0, 0) scale(1)'}
+        ];
+        duration = 580;
+        easing = 'cubic-bezier(.34, 1.45, .64, 1)';
+      } else if (mType === 'slow-popup') {
+        keyframes = [
+          {opacity: 0, transform: 'translateY(32px) scale(0.88)'},
+          {opacity: 1, transform: 'translate(0, 0) scale(1)'}
+        ];
+        duration = 900;
+        easing = 'cubic-bezier(.16, 1, .3, 1)';
+      } else if (mType === 'up-fade') {
+        keyframes = [
+          {opacity: 0, transform: 'translateY(24px)'},
+          {opacity: 1, transform: 'translateY(0)'}
+        ];
+        duration = 550;
+        easing = 'cubic-bezier(.22, 1, .36, 1)';
+      }
+
+      const animation = part.animate(keyframes, {
+        duration,
         delay: start - now + index * unit.group.interval,
-        easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards'
+        easing,
+        fill: 'backwards'
       });
       part.classList.remove('motion-pending');
       running.set(animation, unit.group);
